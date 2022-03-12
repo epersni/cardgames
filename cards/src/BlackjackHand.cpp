@@ -28,9 +28,18 @@ void BlackjackHand::AddCard(const Card& card)
   }
 }
 
+//TODO: FIX AND UNIT TEST
 BlackjackHandIf::Status BlackjackHand::GetStatus() const 
 {
-  return BlackjackHandIf::Status::Numeric; //TODO: FIX AND UNIT TEST
+  if(GetTotal() > 21)
+  {
+    return BlackjackHandIf::Status::Busted;
+  }
+  else if((GetTotal() == 21) && (mCards.size() == 2))
+  {
+    return BlackjackHandIf::Status::BlackJack;
+  }
+  return BlackjackHandIf::Status::Numeric; 
 }
 
 std::vector<Card> BlackjackHand::GetCards() const

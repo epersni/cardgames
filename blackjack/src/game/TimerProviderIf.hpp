@@ -12,6 +12,7 @@ struct TimerProviderIf
   using TimeExpiredCb = std::function<void()>;
   virtual void AcceptingBetsTimerCb(TimeExpiredCb callback) = 0;
   virtual void DealerDecisionTimerCb(TimeExpiredCb callback) = 0;
+  virtual void PlayingUserHandTimerCb(TimeExpiredCb callback) = 0;
 };
 
 }
