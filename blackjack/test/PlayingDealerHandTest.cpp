@@ -20,10 +20,13 @@ struct PlayingDealerTest
     When(Method(mockedTimerProvider, DealerDecisionTimerCb)).AlwaysDo(
         [](TimerProviderIf::TimeExpiredCb cb){ cb(); });
   }
-  Mock<TimerProviderIf> mockedTimerProvider;
-  std::shared_ptr<TimerProviderIf> timerProvider;
+
   Mock<CardProviderIf> mockedCardProvider;
   CardProviderIf::Ptr cardProvider;
+
+  Mock<TimerProviderIf> mockedTimerProvider;
+  std::shared_ptr<TimerProviderIf> timerProvider;
+
   PlayingDealerHand dealer;
 };
 

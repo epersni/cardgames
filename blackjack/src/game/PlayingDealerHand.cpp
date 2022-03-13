@@ -17,6 +17,7 @@ void PlayingDealerHand::Play(DonePlayingCb callback)
 {
   if(mHand.GetTotal() < DEALER_HITS_ON_LIMIT)
   {
+    mIsPlaying = true;
     mDonePlayingCallback = callback;
     mTimerProvider->DealerDecisionTimerCb([this]()
         { 
@@ -25,8 +26,14 @@ void PlayingDealerHand::Play(DonePlayingCb callback)
   }
   else
   {
+    mIsPlaying = false;
     callback();
   }
+}
+
+bool PlayingDealerHand::IsPlaying() const 
+{
+  return mIsPlaying;
 }
 
 void PlayingDealerHand::ReceiveCard(const cards::Card card)

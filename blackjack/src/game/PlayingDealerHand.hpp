@@ -24,12 +24,15 @@ public:
   unsigned int GetTotal() const override; //TODO unit test this
   std::vector<cards::Card> GetCards() const override; //TODO unit test this
   cards::BlackjackHandIf::Status GetStatus() const override; //TODO unit test this
+  bool IsPlaying() const override; //TODO unit test
 
 private:
   const CardProviderIf::Ptr& mCardProvider;
   const TimerProviderIf::Ptr& mTimerProvider;
   cards::BlackjackHand mHand;
+  bool mIsPlaying = false;
   DonePlayingCb mDonePlayingCallback; 
+
   void onDealerDecisionTimeOut();
 };
 

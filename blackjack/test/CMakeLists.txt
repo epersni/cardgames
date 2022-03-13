@@ -19,7 +19,7 @@ add_executable(test_blackjack
                OutcomeDistributorTest.cpp
                OutcomeFactoryTest.cpp
                #PlayersQueueControllerTest.cpp
-               #               PlayingDealerHandTest.cpp
+               PlayingDealerHandTest.cpp
                TimeControllerTest.cpp
                )
 target_link_libraries(test_blackjack 
