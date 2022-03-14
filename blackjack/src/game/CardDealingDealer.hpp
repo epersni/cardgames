@@ -18,9 +18,9 @@ class CardDealingDealer
 {
 public:
   CardDealingDealer(const CardProviderIf::Ptr& cardProvider,
-         const std::vector<CardReceiverIf::Ptr>& cardReceivers);
-  void DealCards(CardsDealtCb callback);
-  cards::Card GetCard(); //TODO: not a good name for this function/interface
+                    const std::vector<CardReceiverIf::Ptr>& cardReceivers);
+  void DealCards(CardsDealtCb callback) override;
+  cards::Card GetCard() override; //TODO: not a good name for this function/interface
 
 private:
   const CardProviderIf::Ptr& mCardProvider;
