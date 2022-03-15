@@ -12,7 +12,6 @@ find_package(FakeIt REQUIRED)
 #target_link_libraries(catch_main PUBLIC Catch2::Catch2)
 
 add_executable(test_blackjack
-               PlayingUserHandTest.cpp
                CardDealerTest.cpp
                GameStateDistributorTest.cpp
                GameTest.cpp
@@ -20,6 +19,7 @@ add_executable(test_blackjack
                OutcomeFactoryTest.cpp
                PlayersQueueTest.cpp
                PlayingDealerHandTest.cpp
+               PlayingUserHandTest.cpp
                TimeControllerTest.cpp
                )
 target_link_libraries(test_blackjack 
