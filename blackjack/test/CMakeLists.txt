@@ -18,7 +18,7 @@ add_executable(test_blackjack
                GameTest.cpp
                OutcomeDistributorTest.cpp
                OutcomeFactoryTest.cpp
-               #PlayersQueueControllerTest.cpp
+               PlayersQueueTest.cpp
                PlayingDealerHandTest.cpp
                TimeControllerTest.cpp
                )

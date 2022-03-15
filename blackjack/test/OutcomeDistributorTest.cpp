@@ -16,9 +16,9 @@ TEST_CASE("Creating a OutcomeDistributor", "OutcomeDistributor")
 TEST_CASE("Single Outcome subscriber", "OutcomeDistributor")
 {
   auto outcome = GENERATE(Outcome::BlackJack, 
-                        Outcome::Win,
-                        Outcome::Draw, 
-                        Outcome::Lose);
+                          Outcome::Win,
+                          Outcome::Draw, 
+                          Outcome::Lose);
   
   Mock<OutcomeReceiverIf> receiver; 
   Mock<PlayableHandIf> player;

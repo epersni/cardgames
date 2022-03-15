@@ -7,7 +7,7 @@ target_link_libraries(blackjackgame logging)
 target_sources(
   blackjackgame
   PRIVATE
-    #PlayersQueueController.cpp 
+    PlayersQueue.cpp 
     CardDealingDealer.cpp 
     Game.cpp 
     GameStateDistributor.cpp 
