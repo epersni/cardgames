@@ -17,6 +17,7 @@ add_executable(test_blackjack
                GameTest.cpp
                OutcomeDistributorTest.cpp
                OutcomeFactoryTest.cpp
+               PlayerTest.cpp
                PlayersQueueTest.cpp
                PlayingDealerHandTest.cpp
                PlayingUserHandTest.cpp
