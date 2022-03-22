@@ -1,5 +1,5 @@
 #include "Player.hpp"
-#include "GameStateDistributorIf.hpp"
+#include "GameStatePublisherIf.hpp"
 
 #include <fakeit.hpp>
 #include <catch2/catch.hpp>

@@ -1,6 +1,6 @@
 #include "Game.hpp"
 #include "GameState.hpp"
-#include "GameStateDistributorIf.hpp"
+#include "GameStateReceiverIf.hpp"
 #include "OutcomeFactoryIf.hpp"
 #include "PlayableHandIf.hpp"
 #include "TimerProviderIf.hpp"
@@ -21,7 +21,7 @@ struct MultiPlayerTest
     , timerProvider{MockPtr(TimerProviderIf, mockedTimerProvider)}
     , outcomeProvider{MockPtr(OutcomeFactoryIf, mockedOutcomeProvider)}
     , outcomeDistributor{MockPtr(OutcomeDistributorIf, mockedOutcomeDistributor)}
-    , gameStateDistributor{MockPtr(GameStateDistributorIf, mockedGameStateDistributor)}
+    , gameStateReceiver{MockPtr(GameStateReceiverIf, mockedGameStateReceiver)}
     , cardDealer{MockPtr(CardDealerIf, mockedCardDealer)}
     , playersQueue{MockPtr(PlayersQueueIf, mockedPlayersQueue)}
     , game(playersQueue,
@@ -29,11 +29,11 @@ struct MultiPlayerTest
            timerProvider,
            outcomeProvider,
            outcomeDistributor,
-           gameStateDistributor,
+           gameStateReceiver,
            cardDealer)
   {
     Fake(Method(mockedPlayer,Play)); 
-    Fake(Method(mockedGameStateDistributor, ReceiveGameState));
+    Fake(Method(mockedGameStateReceiver, ReceiveGameState));
     Fake(Method(mockedOutcomeProvider, CreateOutcome));
     Fake(Method(mockedOutcomeDistributor, ReceiveOutcomes));
     When(Method(mockedTimerProvider, AcceptingBetsTimerCb)).AlwaysDo(
@@ -55,8 +55,8 @@ struct MultiPlayerTest
   std::shared_ptr<OutcomeFactoryIf> outcomeProvider;
   Mock<OutcomeDistributorIf> mockedOutcomeDistributor;
   std::shared_ptr<OutcomeDistributorIf> outcomeDistributor;
-  Mock<GameStateDistributorIf> mockedGameStateDistributor;
-  std::shared_ptr<GameStateDistributorIf> gameStateDistributor;
+  Mock<GameStateReceiverIf> mockedGameStateReceiver;
+  std::shared_ptr<GameStateReceiverIf> gameStateReceiver;
   Mock<CardDealerIf> mockedCardDealer;
   std::shared_ptr<CardDealerIf> cardDealer;
   Mock<PlayersQueueIf> mockedPlayersQueue;
@@ -66,11 +66,11 @@ struct MultiPlayerTest
 
 TEST_CASE_METHOD(
     MultiPlayerTest,
-    "On StartGame and players in queue, AcceptingBets is sent to GameStateDistributor", 
+    "On StartGame and players in queue, AcceptingBets is sent to gameStateReceiver", 
     "[game]")
 {
   game.StartGame();
-  Verify(Method(mockedGameStateDistributor, ReceiveGameState)
+  Verify(Method(mockedGameStateReceiver, ReceiveGameState)
       .Using(GameState::AcceptingBets)).Once();
 }
 
@@ -90,9 +90,9 @@ TEST_CASE_METHOD(
 {
   game.StartGame();
   Verify(
-      Method(mockedGameStateDistributor, ReceiveGameState)
+      Method(mockedGameStateReceiver, ReceiveGameState)
         .Using(GameState::AcceptingBets),
-      Method(mockedGameStateDistributor, ReceiveGameState)
+      Method(mockedGameStateReceiver, ReceiveGameState)
         .Using(GameState::DealingCards),
       Method(mockedCardDealer, DealCards)).Exactly(Once);
 }
@@ -104,9 +104,9 @@ TEST_CASE_METHOD(
 {
   game.StartGame();
   Verify(
-      Method(mockedGameStateDistributor, ReceiveGameState)
+      Method(mockedGameStateReceiver, ReceiveGameState)
         .Using(GameState::AcceptingBets),
-      Method(mockedGameStateDistributor, ReceiveGameState)
+      Method(mockedGameStateReceiver, ReceiveGameState)
         .Using(GameState::DealingCards))
     .Exactly(Once);
 }
@@ -120,7 +120,7 @@ TEST_CASE_METHOD(
   When(Method(mockedPlayer,Play)).Do([](PlayableHandIf::DonePlayingCb cb){ cb(); });
   When(Method(mockedDealer,Play)).Do([](PlayableHandIf::DonePlayingCb cb){ cb(); });
   game.StartGame();
-  Verify(Method(mockedGameStateDistributor, ReceiveGameState)
+  Verify(Method(mockedGameStateReceiver, ReceiveGameState)
       .Using(GameState::PlayersPlaying)).Once();
 }
 
@@ -165,13 +165,13 @@ TEST_CASE_METHOD(
   When(Method(mockedPlayer,Play)).Do([](PlayableHandIf::DonePlayingCb cb){ cb(); });
   When(Method(mockedDealer,Play)).Do([](PlayableHandIf::DonePlayingCb cb){ cb(); });
   game.StartGame();
-  Verify(Method(mockedGameStateDistributor, ReceiveGameState)
+  Verify(Method(mockedGameStateReceiver, ReceiveGameState)
          .Using(GameState::PlayersPlaying),
          Method(mockedPlayer, Play),
          Method(mockedPlayer, Play),
          Method(mockedPlayer, Play),
          Method(mockedPlayer, Play),
-         Method(mockedGameStateDistributor, ReceiveGameState)
+         Method(mockedGameStateReceiver, ReceiveGameState)
          .Using(GameState::DealerPlaying),
          Method(mockedDealer, Play)).Once();
 }
@@ -189,7 +189,7 @@ TEST_CASE_METHOD(
          Method(mockedPlayer, Play),
          Method(mockedPlayer, Play),
          Method(mockedDealer, Play),
-         Method(mockedGameStateDistributor, ReceiveGameState)
+         Method(mockedGameStateReceiver, ReceiveGameState)
          .Using(GameState::Outcome)).Once();
 }
 

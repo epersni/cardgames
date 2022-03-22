@@ -2,7 +2,7 @@
 #define CARDGAMES_BLACKJACK_GAME_GAME_HPP
 
 #include "CardDealerIf.hpp"
-#include "GameStateDistributorIf.hpp"
+#include "GameStateReceiverIf.hpp"
 #include "OutcomeDistributorIf.hpp"
 #include "OutcomeFactoryIf.hpp"
 #include "PlayableHandIf.hpp"
@@ -22,7 +22,7 @@ public:
        const std::shared_ptr<TimerProviderIf>& timerProvider,
        const std::shared_ptr<OutcomeFactoryIf>& outcomeProvider,
        const std::shared_ptr<OutcomeDistributorIf>& outcomeDistributor,
-       const std::shared_ptr<GameStateDistributorIf>& gameStateDistributor,
+       const std::shared_ptr<GameStateReceiverIf>& gameStateDistributor,
        const std::shared_ptr<CardDealerIf>& cardDealer);
   
   void StartGame();
@@ -33,7 +33,7 @@ private:
   const std::shared_ptr<TimerProviderIf>& mTimerProvider;
   const std::shared_ptr<OutcomeFactoryIf>& mOutcomeFactory;
   const std::shared_ptr<OutcomeDistributorIf>& mOutcomeDistributor;
-  const std::shared_ptr<GameStateDistributorIf>& mGameStateDistributor;
+  const std::shared_ptr<GameStateReceiverIf>& mGameStateReceiver;
   const std::shared_ptr<CardDealerIf>& mCardDealer;
   GameState mState = GameState::AcceptingBets;
   std::vector<PlayableHandIf::Ptr> mPlayedHands;

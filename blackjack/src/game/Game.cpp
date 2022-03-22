@@ -7,34 +7,34 @@ Game::Game(const PlayersQueueIf::Ptr playersQueue,
            const std::shared_ptr<TimerProviderIf>& timerProvider,
            const std::shared_ptr<OutcomeFactoryIf>& outcomeProvider,
            const std::shared_ptr<OutcomeDistributorIf>& outcomeDistributor,
-           const std::shared_ptr<GameStateDistributorIf>& gameStateDistributor,
+           const std::shared_ptr<GameStateReceiverIf>& gameStateReceiver,
            const std::shared_ptr<CardDealerIf>& cardDealer)
   : mPlayersQueue(playersQueue)
   , mDealer(dealer)
   , mTimerProvider(timerProvider)
   , mOutcomeFactory(outcomeProvider)
   , mOutcomeDistributor(outcomeDistributor)
-  , mGameStateDistributor(gameStateDistributor)
+  , mGameStateReceiver(gameStateReceiver)
   , mCardDealer(cardDealer)
 {
 }
 
 void Game::StartGame()
 {
-  mGameStateDistributor->ReceiveGameState(GameState::AcceptingBets);
+  mGameStateReceiver->ReceiveGameState(GameState::AcceptingBets);
   mTimerProvider->
     AcceptingBetsTimerCb([this](){ this->onAcceptingBetsTimedOut(); });
 }
 
 void Game::onAcceptingBetsTimedOut()
 {
-  mGameStateDistributor->ReceiveGameState(GameState::DealingCards);
+  mGameStateReceiver->ReceiveGameState(GameState::DealingCards);
   mCardDealer->DealCards([this]() { this->onCardsDealt(); });
 }
 
 void Game::onCardsDealt()
 {
-  mGameStateDistributor->ReceiveGameState(GameState::PlayersPlaying);
+  mGameStateReceiver->ReceiveGameState(GameState::PlayersPlaying);
   onPlayerDonePlaying();
 }
 
@@ -48,14 +48,14 @@ void Game::onPlayerDonePlaying()
   }
   else
   {
-    mGameStateDistributor->ReceiveGameState(GameState::DealerPlaying);
+    mGameStateReceiver->ReceiveGameState(GameState::DealerPlaying);
     mDealer->Play([this](){ this->onDealerDonePlaying(); });
   }
 }
 
 void Game::onDealerDonePlaying()
 {
-  mGameStateDistributor->ReceiveGameState(GameState::Outcome);
+  mGameStateReceiver->ReceiveGameState(GameState::Outcome);
   std::map<std::shared_ptr<PlayableHandIf>, Outcome> playerOutcomeMap;
   for(auto p : mPlayedHands)
   {

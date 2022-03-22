@@ -2,16 +2,16 @@
 
 namespace cardgames::blackjack::game{
 
-void GameStateDistributor::Subscribe(const GameStateReceiverIf::Ptr& receiver)
+void GameStateDistributor::Subscribe(GameStateChangeCb cb)
 {
-  mReceivers.push_back(receiver);
+  mCallbacks.push_back(cb);
 }
 
 void GameStateDistributor::ReceiveGameState(const GameState newState)
 {
-  for(auto receiver : mReceivers)
+  for(auto cb : mCallbacks)
   {
-    receiver->ReceiveGameState(newState);
+    cb(newState);
   }
 }
 
