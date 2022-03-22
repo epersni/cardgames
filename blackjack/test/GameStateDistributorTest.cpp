@@ -21,7 +21,7 @@ TEST_CASE("Single subscriber", "GameStateDistributor")
                         GameState::Outcome);
   GameStateDistributor distributor;
   bool called = false;
-  distributor.Subscribe([&called](GameState newState){ called = true; });
+  distributor.Subscribe([&called](GameState){ called = true; });
   CHECK(!called);
   distributor.ReceiveGameState(state);
   CHECK(called);
