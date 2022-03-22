@@ -1,5 +1,5 @@
-#ifndef CARDGAMES_BLACKJACK_GAME_PLAYERS_QUEUE_INJECTION_IF_HPP
-#define CARDGAMES_BLACKJACK_GAME_PLAYERS_QUEUE_INJECTION_IF_HPP
+#ifndef CARDGAMES_BLACKJACK_GAME_PLAYERS_QUEUE_INJECTOR_IF_HPP
+#define CARDGAMES_BLACKJACK_GAME_PLAYERS_QUEUE_INJECTOR_IF_HPP
 
 #include "PlayableHandIf.hpp"
 
@@ -7,7 +7,7 @@
 
 namespace cardgames::blackjack::game{
 
-struct PlayersQueueInjectionIf
+struct PlayersQueueInjectorIf
 {
   virtual void Inject(const PlayableHandIf::Ptr& newHand) = 0;
   virtual void InjectAfter(const PlayableHandIf::Ptr& newHand, 
