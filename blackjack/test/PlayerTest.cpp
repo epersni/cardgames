@@ -1,4 +1,5 @@
 #include "Player.hpp"
+#include "GameStateDistributorIf.hpp"
 
 #include <fakeit.hpp>
 #include <catch2/catch.hpp>
@@ -11,16 +12,31 @@ using namespace fakeit;
 struct PlayerTest
 {
   PlayerTest()
+ //   : gameStateDistributor{
+ //       MockPtr(GameStateDistributorIf, mockedGameStateDistributor)}
+ //   , player(gameStateDistributor)
   {
+  //  Fake(Method(mockedGameStateDistributor, Subscribe));
   }
-  Player player;
+ // Mock<GameStateDistributorIf> mockedGameStateDistributor; 
+ // GameStateDistributorIf::Ptr gameStateDistributor;
+ // Player player;
 };
 
 TEST_CASE_METHOD(
     PlayerTest,
-    "Creating a Player",
-    "dealing")
+    "Player subscribes to game states",
+    "player")
 {
-  CHECK(true);
+  //Verify(Method(mockedGameStateDistributor, Subscribe)).Once();
+}
+
+TEST_CASE_METHOD(
+    PlayerTest,
+    "On AcceptingBets, Player enables the betting controls",
+    "player")
+{
+
+  //CHECK(true);
 }
 
