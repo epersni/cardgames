@@ -14,7 +14,6 @@ struct GameStatePublisherIf
   using Ptr = std::shared_ptr<GameStatePublisherIf>;
   using GameStateChangeCb = std::function<void(GameState)>;
   virtual void Subscribe(GameStateChangeCb cb) = 0;
-  virtual void ReceiveGameState(const GameState newState) = 0;
 };
 
 }
