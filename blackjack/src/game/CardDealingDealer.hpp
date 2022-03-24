@@ -4,7 +4,6 @@
 #include "CardDealerIf.hpp"
 #include "CardProviderIf.hpp"
 #include "CardReceiverIf.hpp"
-#include "PlayableHandIf.hpp"
 
 #include "../../../cards/include/BlackjackHand.hpp"
 
