@@ -2,7 +2,7 @@
 #define CARDGAMES_BLACKJACK_GAME_PLAYERS_QUEUE_HPP
 
 #include "PlayersQueueIf.hpp"
-#include "PlayersQueueInjectionIf.hpp"
+#include "PlayersQueueInjectorIf.hpp"
 
 #include <memory>
 #include <vector>
@@ -11,7 +11,7 @@ namespace cardgames::blackjack::game{
 
 class PlayersQueue
   : public PlayersQueueIf
-  , public PlayersQueueInjectionIf
+  , public PlayersQueueInjectorIf
 {
 public:
   bool AnyInQueue() const override;

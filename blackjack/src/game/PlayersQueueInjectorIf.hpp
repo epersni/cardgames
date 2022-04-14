@@ -9,6 +9,7 @@ namespace cardgames::blackjack::game{
 
 struct PlayersQueueInjectorIf
 {
+  using Ptr = std::shared_ptr<PlayersQueueInjectorIf>;
   virtual void Inject(const PlayableHandIf::Ptr& newHand) = 0;
   virtual void InjectAfter(const PlayableHandIf::Ptr& newHand, 
                            const PlayableHandIf::Ptr& afterThisHand) = 0;

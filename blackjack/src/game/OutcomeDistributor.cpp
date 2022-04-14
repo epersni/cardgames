@@ -4,7 +4,7 @@ namespace cardgames::blackjack::game{
 
 void OutcomeDistributor::Subscribe(const OutcomeReceiverIf::Ptr& receiver)
 {
-  mReceivers.push_back(receiver);
+  mReceivers.insert(receiver);
 }
 
 void OutcomeDistributor::ReceiveOutcomes(

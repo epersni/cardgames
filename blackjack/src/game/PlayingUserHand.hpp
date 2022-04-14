@@ -30,8 +30,8 @@ public:
   unsigned int GetTotal() const override;
   std::vector<cards::Card> GetCards() const override;
   cards::BlackjackHandIf::Status GetStatus() const override;
-
   void ReceiveCard(const cards::Card card) override;
+
 private:
   const CardProviderIf::Ptr& mCardProvider;
   const TimerProviderIf::Ptr& mTimerProvider;

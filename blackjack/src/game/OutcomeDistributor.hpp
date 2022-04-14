@@ -3,7 +3,7 @@
 
 #include "OutcomeDistributorIf.hpp"
 
-#include <vector>
+#include <unordered_set>
 
 namespace cardgames::blackjack::game{
 
@@ -12,9 +12,9 @@ class OutcomeDistributor : public OutcomeDistributorIf
 public:
   void Subscribe(const OutcomeReceiverIf::Ptr& receiver);
   void ReceiveOutcomes(OutcomeReceiverIf::PlayerOutcomeMap&& playerOutcomes);//TODO: not really good that this function is public, basically it is only Game.cpp that shall be allowed to call this
-  
+  unsigned int NumberOfSubscribers() const { return mReceivers.size(); }
 private:
-  std::vector<OutcomeReceiverIf::Ptr> mReceivers;
+  std::unordered_set<OutcomeReceiverIf::Ptr> mReceivers;
 };
 
 }

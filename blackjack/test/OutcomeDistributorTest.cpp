@@ -31,4 +31,16 @@ TEST_CASE("Single Outcome subscriber", "OutcomeDistributor")
   Verify(Method(receiver, ReceiveOutcomes)).Once();
 }
 
+TEST_CASE("Subscribing multiple times will only add subscriber once", 
+          "OutcomeDistributor")
+{
+  Mock<OutcomeReceiverIf> receiver; 
+  OutcomeDistributor distributor;
+  distributor.Subscribe(MockPtr(OutcomeReceiverIf, receiver));
+  CHECK(distributor.NumberOfSubscribers() == 1);
+  distributor.Subscribe(MockPtr(OutcomeReceiverIf, receiver));
+  CHECK(distributor.NumberOfSubscribers() == 1);
+  distributor.Subscribe(MockPtr(OutcomeReceiverIf, receiver));
+  CHECK(distributor.NumberOfSubscribers() == 1);
+}
 

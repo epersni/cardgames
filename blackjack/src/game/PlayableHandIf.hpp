@@ -13,7 +13,7 @@ struct PlayableHandIf
 {
   using Ptr = std::shared_ptr<PlayableHandIf>;
   using DonePlayingCb = std::function<void()>;
-  virtual void Play(DonePlayingCb callback) = 0;
+  virtual void Play(DonePlayingCb callback) = 0; //TODO: Maybe not everyone shall see this function?
   virtual bool IsPlaying() const = 0;
   virtual unsigned int GetTotal() const = 0 ;
   virtual std::vector<cards::Card> GetCards() const = 0;
