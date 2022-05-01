@@ -1,9 +1,13 @@
 #include "Player.hpp"
+#include "Logging.hpp"
 
 #include <algorithm>
 
 namespace cardgames::blackjack::game{
-
+namespace
+{
+  auto log = logging::Logger::createLogger("Player");
+}
 
 Player::Player(const GameStatePublisherIf::Ptr& gameStatePublisher,
                const PlayersQueueInjectorIf::Ptr& queueInjector,
@@ -18,6 +22,7 @@ Player::Player(const GameStatePublisherIf::Ptr& gameStatePublisher,
   , mCardProvider(cardProvider)
   , mTimerProvider(timerProvider)
 {
+  log.info("Creating a player");
   mGameStatePublisher->Subscribe(
       [this](GameState newState){ onGameStateChange(newState); });
 }
@@ -53,7 +58,6 @@ void Player::EnableActions(const AllowedActions& actions)
 void Player::onGameStateChange(GameState newGameState)
 {
   mBettingControls->DisableAll();
-  mPlayingControls->DisableAll();
   
   switch(newGameState)
   {

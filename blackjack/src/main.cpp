@@ -1,5 +1,7 @@
 #include "Logging.hpp"
 #include "KeyEventPublisher.hpp"
+#include "GameStateDistributor.hpp"
+
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/System/Clock.hpp>
@@ -23,7 +25,12 @@ int main()
   sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
   sf::CircleShape shape(100.f);
   shape.setFillColor(sf::Color::Green);
+  
+  auto log = logging::Logger::createLogger("main");
+  
+  log.info("Starting Blackjack Application");
 
+  auto gameStateDistributor = std::make_shared<blackjack::game::GameStateDistributor>();
 
   const sf::Time timePerFrame = sf::seconds(1.f/60.f);
   sf::Time timeSinceLastUpdate = sf::Time::Zero;
@@ -35,7 +42,6 @@ int main()
     while (timeSinceLastUpdate > timePerFrame)
     {
       timeSinceLastUpdate -= timePerFrame;
-      std::cout << timeSinceLastUpdate.asMilliseconds() << " <--time " << std::endl;
       /* BEGIN PROCESS EVENTS */
       sf::Event event;
       if (window.pollEvent(event))

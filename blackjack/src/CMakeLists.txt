@@ -8,6 +8,8 @@ add_executable(blackjack
 target_link_libraries(
   blackjack 
   PRIVATE 
+  blackjackgame
+  cards
   logging 
   cardgamescommon
   sfml-graphics 

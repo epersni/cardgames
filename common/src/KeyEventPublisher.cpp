@@ -14,7 +14,7 @@ void KeyEventPublisher::handleKeyPressed(sf::Keyboard::Key keyPressed) const
   
   log.trace("Handling pressed key = {}", key);
 
-  if(mKeySubscriberMap.contains(key))
+  if(mKeySubscriberMap.end() != mKeySubscriberMap.find(key))
   {
     auto callbacks = mKeySubscriberMap.at(key);
     std::for_each(callbacks.begin(), callbacks.end(), [](Cb &c){ c(); }); 

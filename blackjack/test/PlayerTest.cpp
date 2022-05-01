@@ -12,6 +12,7 @@ using namespace fakeit;
 
 #define MockPtr(t,p) (std::shared_ptr<t>(&p.get(),[](...){}))
 
+  //TODO: complete this test suite with tests
 struct PlayerTest
 {
   PlayerTest()
@@ -71,9 +72,9 @@ TEST_CASE_METHOD(
     "On PlayersPlaying enable playing controls",
     "player")
 {
-  //changeStateCb(GameState::PlayersPlaying);
-  //Verify(
-  //    Method(mockedPlayingControls, DisableAll),
-  //    Method(mockedPlayingControls, Enable));
+ // changeStateCb(GameState::PlayersPlaying);
+ // Verify(
+ //     Method(mockedPlayingControls, DisableAll),
+ //     Method(mockedPlayingControls, Enable));
 }
 
