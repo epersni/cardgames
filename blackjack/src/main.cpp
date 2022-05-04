@@ -1,6 +1,7 @@
 #include "Logging.hpp"
 #include "KeyEventPublisher.hpp"
 #include "GameStateDistributor.hpp"
+#include "CardDealingDealer.hpp"
 
 
 #include <SFML/Window/Event.hpp>
@@ -31,6 +32,8 @@ int main()
   log.info("Starting Blackjack Application");
 
   auto gameStateDistributor = std::make_shared<blackjack::game::GameStateDistributor>();
+
+  auto dealer = std::make_shared<blackjack::game::CardDealingDealer>();
 
   const sf::Time timePerFrame = sf::seconds(1.f/60.f);
   sf::Time timeSinceLastUpdate = sf::Time::Zero;

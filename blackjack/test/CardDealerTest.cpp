@@ -1,4 +1,5 @@
 #include "CardDealingDealer.hpp"
+#include "DeckIf.hpp"
 
 #include <fakeit.hpp>
 #include <catch2/catch.hpp>
@@ -17,19 +18,21 @@ struct CardDealerTest
                     MockPtr(CardReceiverIf, mockedCardReceivers[1]),
                     MockPtr(CardReceiverIf, mockedCardReceivers[2]),
                     MockPtr(CardReceiverIf, mockedCardReceivers[3])}
-    , cardProvider(MockPtr(CardProviderIf, mockedCardProvider))
-    , dealer(cardProvider, cardReceivers)
+    , deck(MockPtr(DeckIf, mockedDeck))
+    , dealer(deck, cardReceivers)
   {
     for(auto& r : mockedCardReceivers)
     {
       Fake(Method(r,ReceiveCard)); 
     }
-    Fake(Method(mockedCardProvider, GetCard));
+    Fake(Method(mockedDeck, Draw));
+    Fake(Method(mockedDeck, Shuffle));
+    When(Method(mockedDeck, CardsLeft)).AlwaysReturn(52);
   }
   std::vector<Mock<CardReceiverIf>> mockedCardReceivers;
   std::vector<CardReceiverIf::Ptr> cardReceivers;
-  Mock<CardProviderIf> mockedCardProvider;
-  CardProviderIf::Ptr cardProvider;
+  Mock<DeckIf> mockedDeck;
+  DeckIf::Ptr deck;
   CardDealingDealer dealer;
 };
 
@@ -49,19 +52,19 @@ TEST_CASE_METHOD(
 {
   dealer.DealCards([](){});
   Verify(Method(mockedCardReceivers[0], ReceiveCard),
-         Method(mockedCardProvider, GetCard),
+         Method(mockedDeck, Draw),
          Method(mockedCardReceivers[1], ReceiveCard),
-         Method(mockedCardProvider, GetCard),
+         Method(mockedDeck, Draw),
          Method(mockedCardReceivers[2], ReceiveCard),
-         Method(mockedCardProvider, GetCard),
+         Method(mockedDeck, Draw),
          Method(mockedCardReceivers[3], ReceiveCard),
-         Method(mockedCardProvider, GetCard),
+         Method(mockedDeck, Draw),
          Method(mockedCardReceivers[0], ReceiveCard),
-         Method(mockedCardProvider, GetCard),
+         Method(mockedDeck, Draw),
          Method(mockedCardReceivers[1], ReceiveCard),
-         Method(mockedCardProvider, GetCard),
+         Method(mockedDeck, Draw),
          Method(mockedCardReceivers[2], ReceiveCard),
-         Method(mockedCardProvider, GetCard),
+         Method(mockedDeck, Draw),
          Method(mockedCardReceivers[3], ReceiveCard)).Exactly(Once);
 }
 
@@ -71,8 +74,18 @@ TEST_CASE_METHOD(
     "dealing")
 {
   auto card = Card{Suit::Hearts, Rank::Two};
-  When(Method(mockedCardProvider, GetCard)).Return(card);
+  When(Method(mockedDeck, Draw)).Return(card);
   CHECK(card == dealer.GetCard());
-  Verify(Method(mockedCardProvider, GetCard)).Exactly(Once);
+  Verify(Method(mockedDeck, Draw)).Exactly(Once);
+}
+
+TEST_CASE_METHOD(
+    CardDealerTest,
+    "Dealer shuffles deck when no more cards left in deck", 
+    "dealing")
+{
+  When(Method(mockedDeck, CardsLeft)).Return(0);
+  (void)dealer.GetCard(); 
+  Verify(Method(mockedDeck, Shuffle)).Exactly(Once);
 }
 

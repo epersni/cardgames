@@ -5,6 +5,7 @@
 #include "CardProviderIf.hpp"
 #include "CardReceiverIf.hpp"
 
+#include "../../../cards/include/DeckIf.hpp"
 #include "../../../cards/include/BlackjackHand.hpp"
 
 #include <vector>
@@ -16,13 +17,13 @@ class CardDealingDealer
   , public CardProviderIf
 {
 public:
-  CardDealingDealer(const CardProviderIf::Ptr& cardProvider,
+  CardDealingDealer(const cards::DeckIf::Ptr& deck,
                     const std::vector<CardReceiverIf::Ptr>& cardReceivers);
   void DealCards(CardsDealtCb callback) override;
   cards::Card GetCard() override; //TODO: not a good name for this function/interface
 
 private:
-  const CardProviderIf::Ptr& mCardProvider;
+  const cards::DeckIf::Ptr& mDeck;
   const std::vector<CardReceiverIf::Ptr>& mCardReceivers;
 };
 
