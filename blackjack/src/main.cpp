@@ -2,6 +2,9 @@
 #include "KeyEventPublisher.hpp"
 #include "GameStateDistributor.hpp"
 #include "CardDealingDealer.hpp"
+#include "DeckFactory.hpp"
+#include "PlayersQueue.hpp"
+#include "TimeController.hpp"
 
 
 #include <SFML/Window/Event.hpp>
@@ -31,9 +34,26 @@ int main()
   
   log.info("Starting Blackjack Application");
 
-  auto gameStateDistributor = std::make_shared<blackjack::game::GameStateDistributor>();
+  
+  auto dealer = 
+    std::make_shared<blackjack::game::CardDealingDealer>(
+        cards::DeckFactory::CreateBlackJackDeck(),
+        /*TODO: cardReceivers*/); //TODO: This is a problem, we have no receivers yet!
+  
+  auto gameStateDistributor = std::make_shared<blackjack::game::GameStateDistributor>{};
 
-  auto dealer = std::make_shared<blackjack::game::CardDealingDealer>();
+  auto playersQueue = std::make_shared<blackjack::game::PlayersQueue>{}:
+
+  auto timeController = std::make_shared<blackjack::game::TimeController>{}:
+
+  auto player = std::make_shared<blackjack::game::Player(
+      gameStateDistributor,
+      playersQueue,
+      /* BettingControlsIf */,
+      /* PlayingControlsIf */,
+      dealer,
+      timeController);
+
 
   const sf::Time timePerFrame = sf::seconds(1.f/60.f);
   sf::Time timeSinceLastUpdate = sf::Time::Zero;
