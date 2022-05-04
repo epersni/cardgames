@@ -7,13 +7,14 @@ target_link_libraries(blackjackgame logging)
 target_sources(
   blackjackgame
   PRIVATE
-    Player.cpp 
-    PlayersQueue.cpp 
     CardDealingDealer.cpp 
+    CardShoe.cpp 
     Game.cpp 
     GameStateDistributor.cpp 
     OutcomeDistributor.cpp 
     OutcomeFactory.cpp 
+    Player.cpp 
+    PlayersQueue.cpp 
     PlayingDealerHand.cpp 
     PlayingUserHand.cpp 
     TimeController.cpp

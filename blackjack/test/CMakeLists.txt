@@ -13,12 +13,13 @@ find_package(FakeIt REQUIRED)
 
 add_executable(test_blackjack
                CardDealerTest.cpp
+               CardShoeTest.cpp
                GameStateDistributorTest.cpp
                GameTest.cpp
                OutcomeDistributorTest.cpp
                OutcomeFactoryTest.cpp
-               PlayerTest.cpp
                PlayersQueueTest.cpp
+               PlayerTest.cpp
                PlayingDealerHandTest.cpp
                PlayingUserHandTest.cpp
                TimeControllerTest.cpp
