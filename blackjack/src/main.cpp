@@ -54,7 +54,6 @@ int main()
       dealer,
       timeController);
 
-
   const sf::Time timePerFrame = sf::seconds(1.f/60.f);
   sf::Time timeSinceLastUpdate = sf::Time::Zero;
   sf::Clock clock;
