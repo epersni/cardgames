@@ -13,12 +13,14 @@ Player::Player(const GameStatePublisherIf::Ptr& gameStatePublisher,
                const PlayersQueueInjectorIf::Ptr& queueInjector,
                const BettingControlsIf::Ptr& bettingControls,
                const PlayingControlsIf::Ptr& playingControls,
+               const DealingRoundIf::Ptr& dealingRound,
                const CardProviderIf::Ptr& cardProvider,
                const TimerProviderIf::Ptr& timerProvider)
   : mGameStatePublisher(gameStatePublisher)
   , mQueueInjector(queueInjector)
   , mBettingControls(bettingControls)
   , mPlayingControls(playingControls)
+  , mDealingRound(dealingRound)
   , mCardProvider(cardProvider)
   , mTimerProvider(timerProvider)
 {
@@ -57,7 +59,8 @@ void Player::EnableActions(const AllowedActions& actions)
 
 void Player::onGameStateChange(GameState newGameState)
 {
-  mBettingControls->DisableAll();
+  log.debug("Game state received"); //TODO: log gameState
+  mBettingControls->DisableAll(); // TODO this does not exist..... START HERE 
   
   switch(newGameState)
   {
@@ -72,6 +75,7 @@ void Player::onGameStateChange(GameState newGameState)
                                                   shared_from_this());
             mHands.push_back(newHand);
             mQueueInjector->Inject(newHand);
+            mDealingRound->JoinNextDealingRound(newHand);
           });
       break;
     case GameState::PlayersPlaying:

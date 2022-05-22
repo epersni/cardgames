@@ -2,6 +2,7 @@
 #define CARDGAMES_BLACKJACK_GAME_PLAYER_HPP
 
 #include "BettingControlsIf.hpp"
+#include "DealingRoundIf.hpp"
 #include "CardProviderIf.hpp"
 #include "GameStatePublisherIf.hpp"
 #include "HandControlEnablerIf.hpp"
@@ -23,6 +24,7 @@ public:
          const PlayersQueueInjectorIf::Ptr& queueInjector,
          const BettingControlsIf::Ptr& bettingControls,
          const PlayingControlsIf::Ptr& playingControls,
+         const DealingRoundIf::Ptr& dealingRound,
          const CardProviderIf::Ptr& cardProvider,
          const TimerProviderIf::Ptr& timerProvider);
 
@@ -34,12 +36,13 @@ public:
 
 
 private:
-  const GameStatePublisherIf::Ptr& mGameStatePublisher;
-  const PlayersQueueInjectorIf::Ptr& mQueueInjector;
-  const BettingControlsIf::Ptr& mBettingControls;
-  const PlayingControlsIf::Ptr& mPlayingControls;
-  const CardProviderIf::Ptr& mCardProvider;
-  const TimerProviderIf::Ptr& mTimerProvider;
+  const GameStatePublisherIf::Ptr mGameStatePublisher;
+  const PlayersQueueInjectorIf::Ptr mQueueInjector;
+  const BettingControlsIf::Ptr mBettingControls;
+  const PlayingControlsIf::Ptr mPlayingControls;
+  const DealingRoundIf::Ptr mDealingRound;
+  const CardProviderIf::Ptr mCardProvider;
+  const TimerProviderIf::Ptr mTimerProvider;
   std::vector<std::shared_ptr<PlayingUserHand>> mHands;
 
   void onGameStateChange(GameState newGameState);

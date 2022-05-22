@@ -27,12 +27,13 @@ public:
   bool IsPlaying() const override; //TODO unit test
 
 private:
-  const CardProviderIf::Ptr& mCardProvider;
-  const TimerProviderIf::Ptr& mTimerProvider;
+  const CardProviderIf::Ptr mCardProvider;
+  const TimerProviderIf::Ptr mTimerProvider;
   cards::BlackjackHand mHand;
   bool mIsPlaying = false;
   DonePlayingCb mDonePlayingCallback; 
 
+  void DoNextMove();
   void onDealerDecisionTimeOut();
 };
 

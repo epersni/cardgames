@@ -4,6 +4,7 @@
 #include "CardDealerIf.hpp"
 #include "CardProviderIf.hpp"
 #include "CardReceiverIf.hpp"
+#include "DealingRoundIf.hpp"
 
 #include "../../../cards/include/BlackjackHand.hpp"
 
@@ -14,16 +15,17 @@ namespace cardgames::blackjack::game{
 class CardDealingDealer
   : public CardDealerIf
   , public CardProviderIf
+  , public DealingRoundIf
 {
 public:
-  CardDealingDealer(const CardProviderIf::Ptr& cardProvider,
-                    const std::vector<CardReceiverIf::Ptr>& cardReceivers);
+  CardDealingDealer(const CardProviderIf::Ptr& cardProvider);
   void DealCards(CardsDealtCb callback) override;
   cards::Card GetCard() override; //TODO: not a good name for this function/interface
+  void JoinNextDealingRound(CardReceiverIf::Ptr cardReceiver) override;
 
 private:
-  const CardProviderIf::Ptr& mCardProvider;
-  const std::vector<CardReceiverIf::Ptr>& mCardReceivers;
+  const CardProviderIf::Ptr mCardProvider;
+  std::vector<CardReceiverIf::Ptr> mCardReceivers;
 };
 
 }

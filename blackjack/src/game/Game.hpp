@@ -26,17 +26,19 @@ public:
        const std::shared_ptr<CardDealerIf>& cardDealer);
   
   void StartGame();
+  bool IsGameOver() const;
 
 private:
   const PlayersQueueIf::Ptr mPlayersQueue;
-  const PlayableHandIf::Ptr& mDealer;
-  const std::shared_ptr<TimerProviderIf>& mTimerProvider;
-  const std::shared_ptr<OutcomeFactoryIf>& mOutcomeFactory;
-  const std::shared_ptr<OutcomeDistributorIf>& mOutcomeDistributor;
-  const std::shared_ptr<GameStateReceiverIf>& mGameStateReceiver;
-  const std::shared_ptr<CardDealerIf>& mCardDealer;
-  GameState mState = GameState::AcceptingBets;
+  const PlayableHandIf::Ptr mDealer;
+  const std::shared_ptr<TimerProviderIf> mTimerProvider;
+  const std::shared_ptr<OutcomeFactoryIf> mOutcomeFactory;
+  const std::shared_ptr<OutcomeDistributorIf> mOutcomeDistributor;
+  const std::shared_ptr<GameStateReceiverIf> mGameStateReceiver;
+  const std::shared_ptr<CardDealerIf> mCardDealer;
+  GameState mState{GameState::AcceptingBets};
   std::vector<PlayableHandIf::Ptr> mPlayedHands;
+  bool gameOver{false};
   
   void onAcceptingBetsTimedOut();
   void onCardsDealt();

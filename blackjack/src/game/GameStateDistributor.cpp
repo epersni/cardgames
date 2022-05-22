@@ -1,5 +1,6 @@
 #include "GameStateDistributor.hpp"
 #include "Logging.hpp"
+#include <iostream> //TODO;
 
 namespace cardgames::blackjack::game{
 namespace
@@ -15,6 +16,7 @@ void GameStateDistributor::Subscribe(GameStateChangeCb cb)
 
 void GameStateDistributor::ReceiveGameState(const GameState newState)
 {
+  log.debug("Distributing new game state"); // TODO: log newState
   for(auto cb : mCallbacks)
   {
     cb(newState);

@@ -1,11 +1,16 @@
-#include "Logging.hpp"
-#include "KeyEventPublisher.hpp"
-#include "GameStateDistributor.hpp"
+#include "Betting.hpp"
 #include "CardDealingDealer.hpp"
+#include "CardShoe.hpp"
 #include "DeckFactory.hpp"
+#include "Game.hpp"
+#include "GameStateDistributor.hpp"
+#include "KeyEventPublisher.hpp"
+#include "Logging.hpp"
+#include "Player.hpp"
 #include "PlayersQueue.hpp"
+#include "PlayingDealerHand.hpp"
 #include "TimeController.hpp"
-
+#include "OutcomeDistributor.hpp"
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/System/Clock.hpp>
@@ -15,6 +20,7 @@
 #include <SFML/Graphics.hpp>
 
 using namespace cardgames;
+using namespace cardgames::blackjack;
 
 int main()
 {
@@ -34,25 +40,43 @@ int main()
   
   log.info("Starting Blackjack Application");
 
+  auto cardShoe = std::make_shared<game::CardShoe>(
+      std::make_shared<cards::DeckFactory>());
+  
+  auto gameStateDistributor = std::make_shared<game::GameStateDistributor>();
+
+  auto playersQueue = std::make_shared<game::PlayersQueue>();
+
+  auto timeController = std::make_shared<game::TimeController>();
   
   auto dealer = 
-    std::make_shared<blackjack::game::CardDealingDealer>(
-        cards::DeckFactory::CreateBlackJackDeck(),
-        /*TODO: cardReceivers*/); //TODO: This is a problem, we have no receivers yet!
-  
-  auto gameStateDistributor = std::make_shared<blackjack::game::GameStateDistributor>{};
+    std::make_shared<game::PlayingDealerHand>(cardShoe, timeController);
+ 
+  auto cardDealer = 
+    std::make_shared<game::CardDealingDealer>(cardShoe);
 
-  auto playersQueue = std::make_shared<blackjack::game::PlayersQueue>{}:
-
-  auto timeController = std::make_shared<blackjack::game::TimeController>{}:
-
-  auto player = std::make_shared<blackjack::game::Player(
+  auto player = std::make_shared<game::Player>(
       gameStateDistributor,
       playersQueue,
-      /* BettingControlsIf */,
-      /* PlayingControlsIf */,
-      dealer,
+      std::make_shared<game::Betting>(),
+      nullptr/* PlayingControlsIf */,
+      cardDealer,
+      cardShoe,
       timeController);
+
+  auto outcomeDistributor = std::make_shared<game::OutcomeDistributor>();
+    
+  auto game =
+    std::make_shared<game::Game>(
+        playersQueue,
+        dealer,
+        timeController,
+        nullptr,/* OutcomeProvider */
+        outcomeDistributor,/* outcomeDistributor */
+        gameStateDistributor,
+        cardDealer);
+  
+  game->StartGame();
 
   const sf::Time timePerFrame = sf::seconds(1.f/60.f);
   sf::Time timeSinceLastUpdate = sf::Time::Zero;
@@ -64,6 +88,11 @@ int main()
     while (timeSinceLastUpdate > timePerFrame)
     {
       timeSinceLastUpdate -= timePerFrame;
+      timeController->
+        IncrementGameTimeMs(timePerFrame.asMilliseconds());
+      
+      shallExit = game->IsGameOver();
+
       /* BEGIN PROCESS EVENTS */
       sf::Event event;
       if (window.pollEvent(event))
