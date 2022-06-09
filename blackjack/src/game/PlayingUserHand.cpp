@@ -1,6 +1,10 @@
 #include "PlayingUserHand.hpp"
+#include "Logging.hpp"
 
 namespace cardgames::blackjack::game{
+namespace{
+  logging::Logger log = logging::Logger::createLogger("PlayingUserHand");
+}
 
 PlayingUserHand::PlayingUserHand(
   const CardProviderIf::Ptr& cardProvider,
@@ -28,10 +32,17 @@ cards::Card PlayingUserHand::Split()
 
 void PlayingUserHand::Hit()
 {
+  log.debug("Performing hit");
   mHand.AddCard(mCardProvider->GetCard());
-  mIsPlaying = mHand.GetStatus() != cards::BlackjackHandIf::Status::Busted;
+  mIsPlaying = 
+    (mHand.GetStatus() != cards::BlackjackHandIf::Status::Busted) &&
+    (mHand.GetStatus() != cards::BlackjackHandIf::Status::BlackJack) &&
+    (mHand.GetTotal() != 21);
   updateControls();
-  mCallback();
+  if(!mIsPlaying) 
+  {
+    mCallback();
+  }
 }
 
 void PlayingUserHand::Double()
@@ -53,6 +64,7 @@ void PlayingUserHand::updateControls()
 {
   if(mIsPlaying)
   {
+    log.debug("Total is {}", mHand.GetTotal());
     const auto cards = mHand.GetCards();
     if(cards.size() == 2)
     {
@@ -69,7 +81,7 @@ void PlayingUserHand::updateControls()
     }
     else
     {
-      mControlEnabler->EnableActions({HandAction::Stand});
+      mControlEnabler->EnableActions({HandAction::Stand, HandAction::Hit});
     }
   }
   else
@@ -80,6 +92,7 @@ void PlayingUserHand::updateControls()
 
 void PlayingUserHand::Play(DonePlayingCb callback)
 {
+  log.debug("Allowed to play");
   mIsPlaying = true;
   mCallback = callback;
   mTimerProvider->PlayingUserHandTimerCb([this](){ onPlayingTimeExpired(); });

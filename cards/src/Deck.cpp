@@ -1,5 +1,8 @@
 #include "../include/Deck.hpp"
 
+#include <algorithm>
+#include <random>
+
 namespace cardgames::cards
 {
 
@@ -31,7 +34,9 @@ void Deck::InsertBottom(const Card& card)
 
 void Deck::Shuffle()
 {
-  //TODO: add shuffle + unit test
+  auto rd = std::random_device{}; 
+  auto rng = std::default_random_engine{ rd() };
+  std::shuffle(mCards.begin(), mCards.end(), rng);
 }
 
 Deck operator+(const Deck& lhs, const Deck& rhs)

@@ -1,5 +1,8 @@
 #include "OutcomeDistributor.hpp"
 
+
+//TODO: These kind of distributors could be templatized
+
 namespace cardgames::blackjack::game{
 
 void OutcomeDistributor::Subscribe(const OutcomeReceiverIf::Ptr& receiver)

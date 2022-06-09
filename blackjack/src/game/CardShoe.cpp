@@ -6,6 +6,7 @@ CardShoe::CardShoe(cards::DeckFactoryIf::Ptr deckFactory)
   : mDeckFactory(deckFactory)
   , mDeck(mDeckFactory->CreateBlackJackDeck())
 {
+  mDeck.Shuffle();
 }
 
 cards::Card CardShoe::GetCard()

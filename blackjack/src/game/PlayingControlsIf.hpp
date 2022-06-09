@@ -8,11 +8,12 @@ namespace cardgames::blackjack::game{
 struct PlayingControlsIf
 {
   using Ptr = std::shared_ptr<PlayingControlsIf>;
+  using ButtonPressedCb = std::function<void()>;
 
-  virtual void OnStand(std::function<void()> cb) = 0;
-  virtual void OnSplit(std::function<void()> cb) = 0;
-  virtual void OnDouble(std::function<void()> cb) = 0;
-  virtual void OnHit(std::function<void()> cb) = 0;
+  virtual void OnStand(ButtonPressedCb cb) = 0;
+  virtual void OnSplit(ButtonPressedCb cb) = 0;
+  virtual void OnDouble(ButtonPressedCb cb) = 0;
+  virtual void OnHit(ButtonPressedCb cb) = 0;
   
   virtual void DisableAll() = 0;
 };

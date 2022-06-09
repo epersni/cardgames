@@ -68,6 +68,7 @@ void Player::onGameStateChange(GameState newGameState)
       mBettingControls->OnPlaceBet(
           [this](auto amount)
           {
+            log.info("Bet is placed, creating new hand and adding to players queue");
             (void)amount;
             const auto newHand = 
                 std::make_shared<PlayingUserHand>(mCardProvider, 

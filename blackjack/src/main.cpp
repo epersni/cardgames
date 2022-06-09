@@ -1,4 +1,3 @@
-#include "Betting.hpp"
 #include "CardDealingDealer.hpp"
 #include "CardShoe.hpp"
 #include "DeckFactory.hpp"
@@ -6,11 +5,13 @@
 #include "GameStateDistributor.hpp"
 #include "KeyEventPublisher.hpp"
 #include "Logging.hpp"
+#include "OutcomeDistributor.hpp"
+#include "OutcomeFactory.hpp"
 #include "Player.hpp"
+#include "PlayerController.hpp"
 #include "PlayersQueue.hpp"
 #include "PlayingDealerHand.hpp"
 #include "TimeController.hpp"
-#include "OutcomeDistributor.hpp"
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/System/Clock.hpp>
@@ -26,9 +27,9 @@ int main()
 {
   auto shallExit = false;
 
-  common::KeyEventPublisher keyEventPublisher;
+  auto keyEventPublisher = std::make_shared<common::KeyEventPublisher>();
 
-  keyEventPublisher.subscribeToKeyPressed(
+  keyEventPublisher->subscribeToKeyPressed(
       common::KeyEventPublisher::Key::Q,
       [&shallExit](){ std::cout << "Exiting now then..."; shallExit = true; });
 
@@ -55,11 +56,18 @@ int main()
   auto cardDealer = 
     std::make_shared<game::CardDealingDealer>(cardShoe);
 
+  auto player1Controls = 
+    std::make_shared<game::PlayerController>(keyEventPublisher,
+                                             common::KeyEventPublisher::Key::Num1,
+                                             common::KeyEventPublisher::Key::Num2,
+                                             common::KeyEventPublisher::Key::Num3,
+                                             common::KeyEventPublisher::Key::Num4);
+
   auto player = std::make_shared<game::Player>(
       gameStateDistributor,
       playersQueue,
-      std::make_shared<game::Betting>(),
-      nullptr/* PlayingControlsIf */,
+      player1Controls,
+      player1Controls,
       cardDealer,
       cardShoe,
       timeController);
@@ -71,8 +79,8 @@ int main()
         playersQueue,
         dealer,
         timeController,
-        nullptr,/* OutcomeProvider */
-        outcomeDistributor,/* outcomeDistributor */
+        std::make_shared<game::OutcomeFactory>(),
+        outcomeDistributor,
         gameStateDistributor,
         cardDealer);
   
@@ -101,7 +109,7 @@ int main()
         {
           case sf::Event::EventType::KeyPressed:
             {
-              keyEventPublisher.handleKeyPressed(event.key.code);
+              keyEventPublisher->handleKeyPressed(event.key.code);
               break;
             }
           case sf::Event::EventType::KeyReleased:

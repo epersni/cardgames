@@ -33,9 +33,9 @@ public:
   void ReceiveCard(const cards::Card card) override;
 
 private:
-  const CardProviderIf::Ptr& mCardProvider;
-  const TimerProviderIf::Ptr& mTimerProvider;
-  const HandControlEnablerIf::Ptr& mControlEnabler;
+  const CardProviderIf::Ptr mCardProvider;
+  const TimerProviderIf::Ptr mTimerProvider;
+  const HandControlEnablerIf::Ptr mControlEnabler;
   cards::BlackjackHand mHand;
   bool mIsPlaying = false;
   DonePlayingCb mCallback;

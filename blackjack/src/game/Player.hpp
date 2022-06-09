@@ -17,7 +17,7 @@ namespace cardgames::blackjack::game{
 
 class Player
   : public HandControlEnablerIf
-  , std::enable_shared_from_this<Player>
+  , public std::enable_shared_from_this<Player>
 {
 public:
   Player(const GameStatePublisherIf::Ptr& gameStatePublisher,
