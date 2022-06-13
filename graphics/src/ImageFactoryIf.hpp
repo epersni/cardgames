@@ -6,12 +6,12 @@
 #include <memory>
 #include <string>
 
-namespace cardgames::cards
+namespace cardgames::graphics
 {
 
 struct ImageFactoryIf
 {
-  using Ptr = std::shared_ptr<DeckFacotyIf>;
+  using Ptr = std::shared_ptr<ImageFactoryIf>;
   virtual Image CreateImage(const std::string& imagePath) const = 0;
 };
 

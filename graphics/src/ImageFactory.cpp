@@ -8,7 +8,9 @@ ImageFactory::ImageFactory(const std::string &pathPrefix)
 {
 }
 
-Image CreateImage(const std::string& filename)
+Image ImageFactory::CreateImage(const std::string& filename) const
 {
-  return Image(mPathPrefix + filename);
+  return Image(mPathPrefix + "/" + filename);
+}
+
 }

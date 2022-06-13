@@ -12,7 +12,6 @@ Image::Image(const std::string& filepath)
   }
   mTexture.setSmooth(true);
   mSprite.setTexture(mTexture);
-  mSprite.setScale(0.5, 0.5);
 }
 
 void Image::draw(sf::RenderTarget& target, sf::RenderStates states) const

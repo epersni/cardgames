@@ -88,7 +88,7 @@ int main()
   const sf::Time timePerFrame = sf::seconds(1.f/60.f);
   sf::Time timeSinceLastUpdate = sf::Time::Zero;
   sf::Clock clock;
-  while (view->IsWindowOpen() && !shallExit)
+  while (view->IsWindowOpen() && !game->IsGameOver())
   {
     timeSinceLastUpdate += clock.restart();
     while (timeSinceLastUpdate > timePerFrame)
@@ -97,8 +97,6 @@ int main()
       
       timeController->IncrementGameTimeMs(timePerFrame.asMilliseconds());
       
-      shallExit = game->IsGameOver();
-
       sf::Event event;
       if (view->PollEvent(event))
       {
@@ -118,9 +116,7 @@ int main()
             break;
         }
       }
-      /* END PROCESS EVENTS */
     }
-    /* RENDER HERE */
     view->Render();
   }
 

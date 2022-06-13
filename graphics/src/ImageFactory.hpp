@@ -10,7 +10,7 @@ class ImageFactory : public ImageFactoryIf
 {
   public:
     ImageFactory(const std::string &pathPrefix);
-    Image CreateImage(const std::string filename) const;
+    Image CreateImage(const std::string& filename) const override;
   private:
     const std::string mPathPrefix;
 };

@@ -7,8 +7,10 @@
 namespace cardgames::graphics
 {
 
-BlackJackView::BlackJackView(int width, int height)
+BlackJackView::BlackJackView(
+    int width, int height, ImageFactoryIf::Ptr imageFactory)
   : mWindow(sf::VideoMode(width, height), "BlackJack")
+  , mBackground(imageFactory->CreateImage("background_2560x1440.png"))
 {
 }
 
@@ -29,11 +31,8 @@ void BlackJackView::CloseWindow()
 
 void BlackJackView::Render()
 {
-  //TODO: do not have this shape...
-  sf::CircleShape shape(100.f);
-  shape.setFillColor(sf::Color::Green);
   mWindow.clear();
-  mWindow.draw(shape);
+  mWindow.draw(mBackground);
   mWindow.display();
 }
 
