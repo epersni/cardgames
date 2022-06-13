@@ -12,10 +12,10 @@
 #include "PlayersQueue.hpp"
 #include "PlayingDealerHand.hpp"
 #include "TimeController.hpp"
+#include "ViewFactory.hpp"
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/System/Clock.hpp>
-
 #include <iostream>
 
 #include <SFML/Graphics.hpp>
@@ -24,7 +24,7 @@ using namespace cardgames;
 using namespace cardgames::blackjack;
 
 int main()
-{
+{ 
   auto shallExit = false;
 
   auto keyEventPublisher = std::make_shared<common::KeyEventPublisher>();
@@ -32,10 +32,9 @@ int main()
   keyEventPublisher->subscribeToKeyPressed(
       common::KeyEventPublisher::Key::Q,
       [&shallExit](){ std::cout << "Exiting now then..."; shallExit = true; });
-
-  sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-  sf::CircleShape shape(100.f);
-  shape.setFillColor(sf::Color::Green);
+  
+  graphics::ViewFactory viewFactory;
+  auto view = viewFactory.CreateBlackJackView(200,200);
   
   auto log = logging::Logger::createLogger("main");
   
@@ -89,21 +88,19 @@ int main()
   const sf::Time timePerFrame = sf::seconds(1.f/60.f);
   sf::Time timeSinceLastUpdate = sf::Time::Zero;
   sf::Clock clock;
-  while (window.isOpen() && !shallExit)
+  while (view->IsWindowOpen() && !shallExit)
   {
-    /* HANDLING TIME */
     timeSinceLastUpdate += clock.restart();
     while (timeSinceLastUpdate > timePerFrame)
     {
       timeSinceLastUpdate -= timePerFrame;
-      timeController->
-        IncrementGameTimeMs(timePerFrame.asMilliseconds());
+      
+      timeController->IncrementGameTimeMs(timePerFrame.asMilliseconds());
       
       shallExit = game->IsGameOver();
 
-      /* BEGIN PROCESS EVENTS */
       sf::Event event;
-      if (window.pollEvent(event))
+      if (view->PollEvent(event))
       {
         switch(event.type)
         {
@@ -112,12 +109,9 @@ int main()
               keyEventPublisher->handleKeyPressed(event.key.code);
               break;
             }
-          case sf::Event::EventType::KeyReleased:
-            //TODO: add to keyEventPublisher
-            break;
           case sf::Event::Closed:
             {
-              window.close();
+              view->CloseWindow();
               break;
             }
           default:
@@ -127,9 +121,7 @@ int main()
       /* END PROCESS EVENTS */
     }
     /* RENDER HERE */
-    window.clear();
-    window.draw(shape);
-    window.display();
+    view->Render();
   }
 
   return 0;

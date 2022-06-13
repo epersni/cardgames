@@ -11,9 +11,10 @@ target_link_libraries(
   blackjack 
   PRIVATE 
   blackjackgame
-  cards
-  logging 
   cardgamescommon
+  cards
+  graphics
+  logging 
   sfml-graphics 
   sfml-window
   sfml-system)
