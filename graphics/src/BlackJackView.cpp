@@ -33,6 +33,10 @@ void BlackJackView::Render()
 {
   mWindow.clear();
   mWindow.draw(mBackground);
+  //std::for_each(mPlayers.begin(), 
+  //              mPlayers.end(),
+  //              [](auto player){ mWindow.draw(player); })
+  //mWindow.draw(m
   mWindow.display();
 }
 
