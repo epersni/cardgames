@@ -33,8 +33,6 @@ int main()
       common::KeyEventPublisher::Key::Q,
       [&shallExit](){ std::cout << "Exiting now then..."; shallExit = true; });
   
-  graphics::ViewFactory viewFactory;
-  auto view = viewFactory.CreateBlackJackView(200,200);
   
   auto log = logging::Logger::createLogger("main");
   
@@ -82,6 +80,9 @@ int main()
         outcomeDistributor,
         gameStateDistributor,
         cardDealer);
+  
+  graphics::ViewFactory viewFactory;
+  auto view = viewFactory.CreateBlackJackView(200,200, {player});
   
   game->StartGame();
 

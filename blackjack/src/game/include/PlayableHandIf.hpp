@@ -1,8 +1,8 @@
 #ifndef CARDGAMES_BLACKJACK_GAME_PLAYABLEHAND_IF_HPP
 #define CARDGAMES_BLACKJACK_GAME_PLAYABLEHAND_IF_HPP
 
-#include "../../../cards/include/BlackjackHandIf.hpp"
-#include "../../../cards/include/Card.hpp"
+#include "../../../../cards/include/BlackjackHandIf.hpp"
+#include "../../../../cards/include/Card.hpp"
 
 #include <functional>
 #include <memory>

@@ -2,9 +2,14 @@
 #define CARDGAMES_GRAPHICS_BLACKJACK_VIEW_HPP
 
 #include "ImageFactoryIf.hpp"
+#include "Player.hpp"
 #include "ViewIf.hpp"
 
+#include "../../blackjack/src/game/include/PlayerIf.hpp"
+
 #include <SFML/Graphics.hpp>
+
+#include <vector>
 
 namespace cardgames::graphics
 {
@@ -12,7 +17,10 @@ namespace cardgames::graphics
 class BlackJackView : public ViewIf
 {
 public:
-  BlackJackView(int width, int height, ImageFactoryIf::Ptr imageFactory);
+  BlackJackView(int width,
+                int height, 
+                std::vector<cardgames::blackjack::game::PlayerIf::Ptr> players,
+                ImageFactoryIf::Ptr imageFactory);
   bool IsWindowOpen() const override;
   bool PollEvent(sf::Event& event) override;
   void CloseWindow() override;
@@ -21,6 +29,7 @@ public:
 private:
   sf::RenderWindow mWindow;
   Image mBackground;
+  std::vector<Player> mPlayers;
 };
 
 

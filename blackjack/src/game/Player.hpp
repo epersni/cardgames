@@ -2,10 +2,11 @@
 #define CARDGAMES_BLACKJACK_GAME_PLAYER_HPP
 
 #include "BettingControlsIf.hpp"
-#include "DealingRoundIf.hpp"
 #include "CardProviderIf.hpp"
+#include "DealingRoundIf.hpp"
 #include "GameStatePublisherIf.hpp"
 #include "HandControlEnablerIf.hpp"
+#include "PlayerIf.hpp"
 #include "PlayersQueueInjectorIf.hpp"
 #include "PlayingControlsIf.hpp"
 #include "PlayingUserHand.hpp"
@@ -17,6 +18,7 @@ namespace cardgames::blackjack::game{
 
 class Player
   : public HandControlEnablerIf
+  , public PlayerIf
   , public std::enable_shared_from_this<Player>
 {
 public:
@@ -28,12 +30,7 @@ public:
          const CardProviderIf::Ptr& cardProvider,
          const TimerProviderIf::Ptr& timerProvider);
 
-  //TODO: 
-  //We want a public method to get the hands a Player has at the moment
-  //but we do not want that public method to give access to change that hand. 
-  //A new interface for ReadOnlyHandIf, sort of...
-   
-
+  std::vector<PlayableHandIf::Ptr> GetHands() const override;
 
 private:
   const GameStatePublisherIf::Ptr mGameStatePublisher;

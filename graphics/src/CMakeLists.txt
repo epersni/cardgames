@@ -4,7 +4,7 @@ target_sources(
     BlackJackView.cpp
     Image.cpp
     ImageFactory.cpp
+    Player.cpp
     ViewFactory.cpp
 )
-
 

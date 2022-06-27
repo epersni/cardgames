@@ -1,6 +1,10 @@
 add_library(blackjackgame SHARED "")
 
-target_include_directories(blackjackgame PUBLIC ${CMAKE_CURRENT_LIST_DIR})
+target_include_directories(
+    blackjackgame 
+    PUBLIC ${CMAKE_CURRENT_LIST_DIR} # TODO: make private
+    PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include
+)
 
 target_link_libraries(
   blackjackgame 

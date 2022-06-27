@@ -29,6 +29,18 @@ Player::Player(const GameStatePublisherIf::Ptr& gameStatePublisher,
       [this](GameState newState){ onGameStateChange(newState); });
 }
 
+std::vector<PlayableHandIf::Ptr> Player::GetHands() const
+{
+  std::vector<PlayableHandIf::Ptr> hands;
+
+  for(auto hand : mHands)
+  {
+    hands.push_back(hand);
+  }
+
+  return hands;
+}
+
 void Player::EnableActions(const AllowedActions& actions)
 {
   mPlayingControls->DisableAll();
