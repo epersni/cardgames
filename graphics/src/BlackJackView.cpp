@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <iostream>
+#include <iostream> //TODO
 
 namespace cardgames::graphics
 {
@@ -10,15 +10,13 @@ namespace cardgames::graphics
 BlackJackView::BlackJackView(
     int width, 
     int height, 
-    std::vector<cardgames::blackjack::game::PlayerIf::Ptr> players,
+    const std::vector<cardgames::blackjack::game::PlayerIf::Ptr>& players,
     ImageFactoryIf::Ptr imageFactory)
   : mWindow(sf::VideoMode(width, height), "BlackJack")
-  , mBackground(imageFactory->CreateImage("background_2560x1440.png"))
+  , mBackground(imageFactory->CreateImage("background_2560x1440.png")) //TODO: do not hardcode resolution in imagepath
+  , mImageFactory(imageFactory)
+  , mPlayers(players)
 {
-  for(auto& player : players)
-  {
-    mPlayers.push_back({player});
-  }
 }
 
 bool BlackJackView::IsWindowOpen() const
@@ -40,10 +38,14 @@ void BlackJackView::Render()
 {
   mWindow.clear();
   mWindow.draw(mBackground);
-  std::for_each(mPlayers.begin(), 
-                mPlayers.end(),
-                [&](auto player){ mWindow.draw(player); });
-  //mWindow.draw(m
+
+  for(auto& player : mPlayers)
+  {
+    auto p = Player(player, mImageFactory);//TODO: why did I have to recreate players??
+    p.setPosition(0,0);
+    mWindow.draw(p); 
+  }
+
   mWindow.display();
 }
 

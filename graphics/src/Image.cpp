@@ -10,7 +10,7 @@ Image::Image(const std::string& filepath)
   {
     //TODO: Now what?
   }
-  mTexture.setSmooth(true);
+  //mTexture.setSmooth(true);
   mSprite.setTexture(mTexture);
 }
 

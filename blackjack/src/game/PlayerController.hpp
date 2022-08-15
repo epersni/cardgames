@@ -19,7 +19,12 @@ public:
                    cardgames::common::KeyEventPublisher::Key userButton3,
                    cardgames::common::KeyEventPublisher::Key userButton4);
   
-  void OnPlaceBet(OnBetsPlacedCb cb) override;
+  void HandleButton1();
+  void HandleButton2();
+  void HandleButton3();
+  void HandleButton4();
+
+  void OnPlaceBet(std::function<void()> cb) override;
 
   void OnStand(std::function<void()> cb) override;
   void OnSplit(std::function<void()> cb) override;
@@ -29,12 +34,10 @@ public:
   void DisableAll() override;
 
 private:
-  OnBetsPlacedCb mPlaceBetCb;
-  ButtonPressedCb mStandCb;
-  ButtonPressedCb mSplitCb;
-  ButtonPressedCb mDoubleCb;
-  ButtonPressedCb mHitCb;
-
+  ButtonPressedCb mButton1Cb;
+  ButtonPressedCb mButton2Cb;
+  ButtonPressedCb mButton3Cb;
+  ButtonPressedCb mButton4Cb;
 };
 
 }

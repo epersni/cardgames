@@ -28,7 +28,6 @@ Player::Player(const GameStatePublisherIf::Ptr& gameStatePublisher,
   mGameStatePublisher->Subscribe(
       [this](GameState newState){ onGameStateChange(newState); });
 }
-
 std::vector<PlayableHandIf::Ptr> Player::GetHands() const
 {
   std::vector<PlayableHandIf::Ptr> hands;
@@ -43,7 +42,7 @@ std::vector<PlayableHandIf::Ptr> Player::GetHands() const
 
 void Player::EnableActions(const AllowedActions& actions)
 {
-  mPlayingControls->DisableAll();
+  mPlayingControls->DisableAll(); //TODO:
 
   auto hand = std::find_if(begin(mHands),
                            end(mHands),
@@ -57,6 +56,7 @@ void Player::EnableActions(const AllowedActions& actions)
         mPlayingControls->OnStand([hand](){ (*hand)->Stand(); });
         break;
       case HandAction::Hit:
+        log.debug("Enabling OnHit"); //TODO: remove or fix log
         mPlayingControls->OnHit([hand](){ (*hand)->Hit(); });
         break;
       case HandAction::Double:
@@ -72,16 +72,15 @@ void Player::EnableActions(const AllowedActions& actions)
 void Player::onGameStateChange(GameState newGameState)
 {
   log.debug("Game state received"); //TODO: log gameState
-  mBettingControls->DisableAll(); // TODO this does not exist..... START HERE 
+  //mBettingControls->DisableAll(); // TODO this does not exist..... START HERE 
   
   switch(newGameState)
   {
     case GameState::AcceptingBets:
       mBettingControls->OnPlaceBet(
-          [this](auto amount)
+          [this]()
           {
             log.info("Bet is placed, creating new hand and adding to players queue");
-            (void)amount;
             const auto newHand = 
                 std::make_shared<PlayingUserHand>(mCardProvider, 
                                                   mTimerProvider, 

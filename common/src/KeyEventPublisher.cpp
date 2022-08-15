@@ -31,6 +31,8 @@ std::ostream& operator<<(std::ostream& os, const KeyEventPublisher::Key& key)
 {
   switch(key)
   {
+    case KeyEventPublisher::Key::Num1:
+      os << "Num1"; break;
     case KeyEventPublisher::Key::A:
       os << "A"; break;
     case KeyEventPublisher::Key::Q:

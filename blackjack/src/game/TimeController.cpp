@@ -9,7 +9,7 @@ namespace{
   logging::Logger log = logging::Logger::createLogger("TimeController");
   const uint32_t ACCEPTING_BETS_TIME_MS = 4000;
   const uint32_t DEALER_DECISION_TIME_MS = 1000;
-  const uint32_t PLAYING_USER_HAND_TIME_MS = 4000;
+  const uint32_t PLAYING_USER_HAND_TIME_MS = 20000;
 }
 
 void TimeController::IncrementGameTimeMs(uint32_t timeMs)

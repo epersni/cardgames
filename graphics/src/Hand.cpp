@@ -3,11 +3,14 @@
 namespace cardgames::graphics
 {
 
-void Hand::addCard(/*cards::Card card*/)
+Hand::Hand(const blackjack::game::PlayableHandIf::Ptr& playableHand,
+           const ImageFactory::Ptr& imageFactory)
+  : mImageFactory(imageFactory)
 {
-  mCards.emplace_back(
-      std::make_shared<Image>("/home/nicklas/src/cardgames/graphics/images/cards/3_of_hearts.png"));
-  setPosition(0,0);
+  for(const auto& card : playableHand->GetCards())
+  {
+    mCards.push_back(std::make_shared<Card>(card, mImageFactory));
+  }
 }
 
 void Hand::draw(sf::RenderTarget& target, sf::RenderStates states) const

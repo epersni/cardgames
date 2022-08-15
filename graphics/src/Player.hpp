@@ -16,13 +16,14 @@ namespace cardgames::graphics
 class Player : public sf::Drawable
 {
   public:
-    Player(const blackjack::game::PlayerIf::Ptr& player);
+    Player(const blackjack::game::PlayerIf::Ptr& player,
+           const ImageFactory::Ptr& imageFactory);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const final;
     void setPosition(float x, float y);
 
   private:
     blackjack::game::PlayerIf::Ptr mPlayer;
-    //std::vector<Hand> mHands;
+    std::vector<Hand> mHands;
     //ChipPile mChipPile;
 };
 

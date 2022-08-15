@@ -19,7 +19,7 @@ class BlackJackView : public ViewIf
 public:
   BlackJackView(int width,
                 int height, 
-                std::vector<cardgames::blackjack::game::PlayerIf::Ptr> players,
+                const std::vector<cardgames::blackjack::game::PlayerIf::Ptr>& players,
                 ImageFactoryIf::Ptr imageFactory);
   bool IsWindowOpen() const override;
   bool PollEvent(sf::Event& event) override;
@@ -29,7 +29,8 @@ public:
 private:
   sf::RenderWindow mWindow;
   Image mBackground;
-  std::vector<Player> mPlayers;
+  ImageFactory::Ptr mImageFactory;
+  std::vector<cardgames::blackjack::game::PlayerIf::Ptr> mPlayers;
 };
 
 

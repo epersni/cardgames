@@ -35,12 +35,13 @@ void PlayingUserHand::Hit()
   log.debug("Performing hit");
   mHand.AddCard(mCardProvider->GetCard());
   mIsPlaying = 
-    (mHand.GetStatus() != cards::BlackjackHandIf::Status::Busted) &&
-    (mHand.GetStatus() != cards::BlackjackHandIf::Status::BlackJack) &&
-    (mHand.GetTotal() != 21);
+    !((mHand.GetStatus() == cards::BlackjackHandIf::Status::Busted) ||
+     (mHand.GetStatus() == cards::BlackjackHandIf::Status::BlackJack) ||
+     (mHand.GetTotal() == 21));
   updateControls();
   if(!mIsPlaying) 
   {
+    log.debug("Done playing, calling callback"); //TODO: not sure about this log
     mCallback();
   }
 }
@@ -62,9 +63,9 @@ void PlayingUserHand::Stand()
 
 void PlayingUserHand::updateControls()
 {
+  log.debug("Updating controls, total={}, playing={}", mHand.GetTotal(), mIsPlaying);
   if(mIsPlaying)
   {
-    log.debug("Total is {}", mHand.GetTotal());
     const auto cards = mHand.GetCards();
     if(cards.size() == 2)
     {
@@ -86,6 +87,7 @@ void PlayingUserHand::updateControls()
   }
   else
   {
+    log.debug("I disabled all controls"); //TODO: not good enough log
     mControlEnabler->EnableActions({});
   }
 }
@@ -101,6 +103,7 @@ void PlayingUserHand::Play(DonePlayingCb callback)
 
 void PlayingUserHand::onPlayingTimeExpired()
 {
+  log.debug("Playing time expired, done playing calling callback"); //TODO:
   mIsPlaying = false;
   updateControls();
   mCallback();
