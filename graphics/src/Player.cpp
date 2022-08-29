@@ -10,23 +10,22 @@ Player::Player(const blackjack::game::PlayerIf::Ptr& player,
 {
   for(const auto &hand : mPlayer->GetHands())
   {
-    mHands.emplace_back(hand, imageFactory);
+    mHands.push_back(std::make_unique<Hand>(hand, imageFactory));
+  }
+  
+  unsigned int handsOffset = 0;
+  for(auto& hand : mHands)
+  {
+    hand->setPosition(0+handsOffset, 0+handsOffset); //TODO: magic number for now, no support (yet) for split hands anyway
+    handsOffset += 50;
   }
 }
 
-void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Player::onDraw(sf::RenderTarget& target, sf::RenderStates states) const
 {
   for(const auto &hand : mHands)
   {
-    target.draw(hand, states);
-  }
-}
-
-void Player::setPosition(float x, float y)
-{
-  for(auto &hand : mHands)
-  {
-    hand.setPosition(x,y);
+    target.draw(*hand, states);
   }
 }
 

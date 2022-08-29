@@ -4,6 +4,7 @@
 #include "Card.hpp"
 #include "Image.hpp"
 #include "ImageFactory.hpp"
+#include "Node.hpp"
 
 #include "../../blackjack/src/game/include/PlayableHandIf.hpp"
 
@@ -18,18 +19,19 @@
 namespace cardgames::graphics
 {
 
-class Hand : public sf::Drawable
+class Hand : public Node
 {
   public:
+    using Ptr = std::unique_ptr<Hand>;
     Hand(const blackjack::game::PlayableHandIf::Ptr& playableHand,
          const ImageFactory::Ptr& imageFactory);
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const final;
     void setPosition(float x, float y);
 
   private:
     std::vector<Card::Ptr> mCards;
     ImageFactory::Ptr mImageFactory;
-    //ChipPile mChipPile;
+    //ChipPile mChipPile; //TODO
+    virtual void onDraw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 
 }

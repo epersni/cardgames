@@ -6,6 +6,7 @@ target_sources(
     Hand.cpp
     Image.cpp
     ImageFactory.cpp
+    Node.cpp
     Player.cpp
     ViewFactory.cpp
 )

@@ -38,11 +38,11 @@ void BlackJackView::Render()
 {
   mWindow.clear();
   mWindow.draw(mBackground);
-
+  unsigned int playerOffset = 0; 
   for(auto& player : mPlayers)
   {
     auto p = Player(player, mImageFactory);//TODO: why did I have to recreate players??
-    p.setPosition(0,0);
+    p.setPosition(0+playerOffset, 0+playerOffset);//TODO: magic number for now, no support (yet) for split hands anyway
     mWindow.draw(p); 
   }
 

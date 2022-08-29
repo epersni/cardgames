@@ -13,7 +13,7 @@ Hand::Hand(const blackjack::game::PlayableHandIf::Ptr& playableHand,
   }
 }
 
-void Hand::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Hand::onDraw(sf::RenderTarget& target, sf::RenderStates states) const
 {
   for(const auto& card : mCards)
   {
