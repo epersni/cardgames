@@ -19,6 +19,11 @@ void Image::draw(sf::RenderTarget& target, sf::RenderStates states) const
   target.draw(mSprite, states);
 }
 
+void Image::setScale(float x, float y)
+{
+  mSprite.setScale(x, y);
+}
+
 void Image::setPosition(float x, float y)
 {
   float offsetY = 0.0;

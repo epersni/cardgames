@@ -63,6 +63,7 @@ namespace
 Card::Card(const cards::Card card, const ImageFactory::Ptr& imageFactory)
   : mImage(imageFactory->CreateImage("cards/" + getCardFileName(card)))
 {
+  mImage.setScale(0.5, 0.5); //TODO: configurable?
 }
 
 void Card::draw(sf::RenderTarget& target, sf::RenderStates states) const

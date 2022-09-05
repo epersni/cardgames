@@ -13,11 +13,14 @@
 namespace cardgames::graphics
 {
 
-class Image : public sf::Drawable
+class Image 
+  : public sf::Drawable
+  , public sf::Transformable
 {
   public:
     Image(const std::string& filepath);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+    void setScale(float x, float y);
     void setPosition(float x, float y);
 
   private:
