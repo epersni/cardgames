@@ -4,6 +4,7 @@
 #include "Card.hpp"
 #include "Image.hpp"
 #include "ImageFactory.hpp"
+#include "TextFactory.hpp"
 #include "Node.hpp"
 
 #include "../../blackjack/src/game/include/PlayableHandIf.hpp"
@@ -11,6 +12,7 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 
 #include <vector>
@@ -24,12 +26,14 @@ class Hand : public Node
   public:
     using Ptr = std::unique_ptr<Hand>;
     Hand(const blackjack::game::PlayableHandIf::Ptr& playableHand,
-         const ImageFactory::Ptr& imageFactory);
+         const ImageFactory::Ptr& imageFactory,
+         const TextFactory::Ptr& textFactory);
     void setPosition(float x, float y);
 
   private:
+    const blackjack::game::PlayableHandIf::Ptr mHand;
     std::vector<Card::Ptr> mCards;
-    ImageFactory::Ptr mImageFactory;
+    sf::Text mSumText;
     //ChipPile mChipPile; //TODO
     virtual void onDraw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

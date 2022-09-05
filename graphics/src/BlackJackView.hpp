@@ -3,6 +3,7 @@
 
 #include "ImageFactoryIf.hpp"
 #include "Player.hpp"
+#include "TextFactoryIf.hpp"
 #include "ViewIf.hpp"
 
 #include "../../blackjack/src/game/include/PlayerIf.hpp"
@@ -20,7 +21,8 @@ public:
   BlackJackView(int width,
                 int height, 
                 const std::vector<cardgames::blackjack::game::PlayerIf::Ptr>& players,
-                ImageFactoryIf::Ptr imageFactory);
+                ImageFactoryIf::Ptr imageFactory,
+                TextFactoryIf::Ptr textFactory);
   bool IsWindowOpen() const override;
   bool PollEvent(sf::Event& event) override;
   void CloseWindow() override;
@@ -29,7 +31,8 @@ public:
 private:
   sf::RenderWindow mWindow;
   Image mBackground;
-  ImageFactory::Ptr mImageFactory;
+  ImageFactoryIf::Ptr mImageFactory;
+  TextFactoryIf::Ptr mTextFactory;
   std::vector<cardgames::blackjack::game::PlayerIf::Ptr> mPlayers;
 };
 

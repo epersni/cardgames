@@ -8,6 +8,7 @@ target_sources(
     ImageFactory.cpp
     Node.cpp
     Player.cpp
+    TextFactory.cpp
     ViewFactory.cpp
 )
 

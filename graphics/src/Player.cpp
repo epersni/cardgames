@@ -5,12 +5,13 @@ namespace cardgames::graphics
 {
 
 Player::Player(const blackjack::game::PlayerIf::Ptr& player,
-               const ImageFactory::Ptr& imageFactory)
+               const ImageFactory::Ptr& imageFactory,
+               const TextFactory::Ptr& textFactory)
   : mPlayer(player)
 {
   for(const auto &hand : mPlayer->GetHands())
   {
-    mHands.push_back(std::make_unique<Hand>(hand, imageFactory));
+    mHands.push_back(std::make_unique<Hand>(hand, imageFactory, textFactory));
   }
   
   unsigned int handsOffset = 0;
