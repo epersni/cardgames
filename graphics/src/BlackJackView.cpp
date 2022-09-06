@@ -8,6 +8,7 @@ namespace cardgames::graphics
 BlackJackView::BlackJackView(
     int width, 
     int height, 
+    cardgames::blackjack::game::PlayableHandIf::Ptr dealerHand,
     const std::vector<cardgames::blackjack::game::PlayerIf::Ptr>& players,
     ImageFactoryIf::Ptr imageFactory,
     TextFactoryIf::Ptr textFactory)
@@ -15,6 +16,7 @@ BlackJackView::BlackJackView(
   , mBackground(imageFactory->CreateImage("background_2560x1440.png")) //TODO: do not hardcode resolution in imagepath
   , mImageFactory(imageFactory)
   , mTextFactory(textFactory)
+  , mDealerHand(dealerHand)
   , mPlayers(players)
 {
 }
@@ -39,6 +41,11 @@ void BlackJackView::Render()
   mWindow.clear();
   mWindow.draw(mBackground);
   unsigned int playerOffset = 0; 
+  
+  auto dealerHand = Hand(mDealerHand, mImageFactory, mTextFactory);
+  dealerHand.setPosition(500, 500); //TODO configurable
+  mWindow.draw(dealerHand); 
+
   for(auto& player : mPlayers)
   {
     auto p = Player(player, mImageFactory, mTextFactory);

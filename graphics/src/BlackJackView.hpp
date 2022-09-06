@@ -20,6 +20,7 @@ class BlackJackView : public ViewIf
 public:
   BlackJackView(int width,
                 int height, 
+                cardgames::blackjack::game::PlayableHandIf::Ptr dealerHand,
                 const std::vector<cardgames::blackjack::game::PlayerIf::Ptr>& players,
                 ImageFactoryIf::Ptr imageFactory,
                 TextFactoryIf::Ptr textFactory);
@@ -33,6 +34,7 @@ private:
   Image mBackground;
   ImageFactoryIf::Ptr mImageFactory;
   TextFactoryIf::Ptr mTextFactory;
+  cardgames::blackjack::game::PlayableHandIf::Ptr mDealerHand;
   std::vector<cardgames::blackjack::game::PlayerIf::Ptr> mPlayers;
 };
 

@@ -63,7 +63,7 @@ TextConfig TextFactory::loadTextConfig(const std::string& textName)
 }
 
 sf::Text TextFactory::CreateText(const std::string& textConfig,
-                                            const std::string& text)
+                                 const std::string& text)
 {
   if(mConfigs.find(textConfig) == mConfigs.end())
   {
@@ -74,7 +74,7 @@ sf::Text TextFactory::CreateText(const std::string& textConfig,
 }
 
 sf::Text TextFactory::createText(const TextConfig& textConfig,
-                                            const std::string& text)
+                                 const std::string& text)
 {
   sf::Text t;
   t.setFont(mFonts[textConfig.font]);

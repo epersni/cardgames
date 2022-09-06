@@ -66,14 +66,9 @@ Card::Card(const cards::Card card, const ImageFactory::Ptr& imageFactory)
   mImage.setScale(0.5, 0.5); //TODO: configurable?
 }
 
-void Card::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void Card::onDraw(sf::RenderTarget& target, sf::RenderStates states) const
 {
   target.draw(mImage, states);
-}
-
-void Card::setPosition(float x, float y)
-{
-  mImage.setPosition(x,y);
 }
 
 }

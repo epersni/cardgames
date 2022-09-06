@@ -28,7 +28,6 @@ class Hand : public Node
     Hand(const blackjack::game::PlayableHandIf::Ptr& playableHand,
          const ImageFactory::Ptr& imageFactory,
          const TextFactory::Ptr& textFactory);
-    void setPosition(float x, float y);
 
   private:
     const blackjack::game::PlayableHandIf::Ptr mHand;
