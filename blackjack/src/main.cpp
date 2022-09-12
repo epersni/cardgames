@@ -118,6 +118,7 @@ int main()
         }
       }
     }
+    view->Update(timePerFrame.asMilliseconds());
     view->Render();
   }
 

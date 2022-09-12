@@ -36,6 +36,11 @@ void BlackJackView::CloseWindow()
   mWindow.close();
 }
 
+void BlackJackView::Update(const uint32_t timeMs)
+{
+  //TODO:
+}
+
 void BlackJackView::Render()
 {
   mWindow.clear();

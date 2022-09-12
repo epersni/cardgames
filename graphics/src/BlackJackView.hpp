@@ -28,6 +28,7 @@ public:
   bool PollEvent(sf::Event& event) override;
   void CloseWindow() override;
   void Render() override;
+  void Update(uint32_t timeMs) override;
 
 private:
   sf::RenderWindow mWindow;
