@@ -2,9 +2,9 @@
 #define CARDGAMES_GRAPHICS_PLAYER_HPP
 
 #include "Hand.hpp"
-#include "ImageFactoryIf.hpp"
 #include "Node.hpp"
 #include "TextFactoryIf.hpp"
+#include "TextureFactoryIf.hpp"
 
 #include "../../blackjack/src/game/include/PlayerIf.hpp"
 
@@ -20,7 +20,7 @@ class Player : public Node
 {
   public:
     Player(const blackjack::game::PlayerIf::Ptr& player,
-           const ImageFactory::Ptr& imageFactory,
+           const TextureFactoryIf::Ptr& textureFactory,
            const TextFactory::Ptr& textFactory);
   private:
     blackjack::game::PlayerIf::Ptr mPlayer;

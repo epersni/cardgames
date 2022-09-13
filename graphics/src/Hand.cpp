@@ -6,7 +6,7 @@ namespace cardgames::graphics
 {
 
 Hand::Hand(const blackjack::game::PlayableHandIf::Ptr& playableHand,
-           const ImageFactory::Ptr& imageFactory,
+           const TextureFactoryIf::Ptr& textureFactory,
            const TextFactory::Ptr& textFactory)
   : mHand(playableHand)
   , mSumText(textFactory->CreateText(
@@ -15,7 +15,7 @@ Hand::Hand(const blackjack::game::PlayableHandIf::Ptr& playableHand,
 {
   for(const auto& card : playableHand->GetCards())
   {
-    mCards.push_back(std::make_shared<Card>(card, imageFactory));
+    mCards.push_back(std::make_shared<Card>(card, textureFactory));
   }
   float offsetX = 0.0;
   float offsetY = 80;

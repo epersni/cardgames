@@ -60,15 +60,15 @@ namespace
   }
 }
 
-Card::Card(const cards::Card card, const ImageFactory::Ptr& imageFactory)
-  : mImage(imageFactory->CreateImage("cards/" + getCardFileName(card)))
+Card::Card(const cards::Card card, const TextureFactoryIf::Ptr& textureFactory)
+  : mSprite(textureFactory->Load("cards/" + getCardFileName(card)))
 {
-  mImage.setScale(0.5, 0.5); //TODO: configurable?
+  mSprite.setScale(0.5, 0.5); //TODO: configurable?
 }
 
 void Card::onDraw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-  target.draw(mImage, states);
+  target.draw(mSprite, states);
 }
 
 }

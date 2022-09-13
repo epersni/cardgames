@@ -10,11 +10,11 @@ BlackJackView::BlackJackView(
     int height, 
     cardgames::blackjack::game::PlayableHandIf::Ptr dealerHand,
     const std::vector<cardgames::blackjack::game::PlayerIf::Ptr>& players,
-    ImageFactoryIf::Ptr imageFactory,
+    TextureFactoryIf::Ptr textureFactory,
     TextFactoryIf::Ptr textFactory)
   : mWindow(sf::VideoMode(width, height), "BlackJack")
-  , mBackground(imageFactory->CreateImage("background_2560x1440.png")) //TODO: do not hardcode resolution in imagepath
-  , mImageFactory(imageFactory)
+  , mBackground(textureFactory->Load("background_2560x1440.png")) //TODO: do not hardcode resolution in imagepath
+  , mTextureFactory(textureFactory)
   , mTextFactory(textFactory)
   , mDealerHand(dealerHand)
   , mPlayers(players)
@@ -47,13 +47,13 @@ void BlackJackView::Render()
   mWindow.draw(mBackground);
   unsigned int playerOffset = 0; 
   
-  auto dealerHand = Hand(mDealerHand, mImageFactory, mTextFactory);
+  auto dealerHand = Hand(mDealerHand, mTextureFactory, mTextFactory);
   dealerHand.setPosition(500, 500); //TODO configurable
   mWindow.draw(dealerHand); 
 
   for(auto& player : mPlayers)
   {
-    auto p = Player(player, mImageFactory, mTextFactory);
+    auto p = Player(player, mTextureFactory, mTextFactory);
     p.setPosition(0+playerOffset, 0+playerOffset);//TODO: magic number for now, no support (yet) for split hands anyway
     mWindow.draw(p); 
   }

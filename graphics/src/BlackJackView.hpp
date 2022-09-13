@@ -1,9 +1,9 @@
 #ifndef CARDGAMES_GRAPHICS_BLACKJACK_VIEW_HPP
 #define CARDGAMES_GRAPHICS_BLACKJACK_VIEW_HPP
 
-#include "ImageFactoryIf.hpp"
 #include "Player.hpp"
 #include "TextFactoryIf.hpp"
+#include "TextureFactoryIf.hpp"
 #include "ViewIf.hpp"
 
 #include "../../blackjack/src/game/include/PlayerIf.hpp"
@@ -22,7 +22,7 @@ public:
                 int height, 
                 cardgames::blackjack::game::PlayableHandIf::Ptr dealerHand,
                 const std::vector<cardgames::blackjack::game::PlayerIf::Ptr>& players,
-                ImageFactoryIf::Ptr imageFactory,
+                TextureFactoryIf::Ptr textureFactory,
                 TextFactoryIf::Ptr textFactory);
   bool IsWindowOpen() const override;
   bool PollEvent(sf::Event& event) override;
@@ -32,8 +32,8 @@ public:
 
 private:
   sf::RenderWindow mWindow;
-  Image mBackground;
-  ImageFactoryIf::Ptr mImageFactory;
+  sf::Sprite mBackground;
+  TextureFactoryIf::Ptr mTextureFactory;
   TextFactoryIf::Ptr mTextFactory;
   cardgames::blackjack::game::PlayableHandIf::Ptr mDealerHand;
   std::vector<cardgames::blackjack::game::PlayerIf::Ptr> mPlayers;

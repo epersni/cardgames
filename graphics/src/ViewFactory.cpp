@@ -1,5 +1,5 @@
 #include "ViewFactory.hpp"
-#include "ImageFactory.hpp"
+#include "TextureFactory.hpp"
 #include "TextFactory.hpp"
 #include "BlackJackView.hpp"
 
@@ -17,8 +17,8 @@ ViewIf::Ptr ViewFactory::CreateBlackJackView(
       height, 
       dealerHand,
       players,
-      std::make_shared<ImageFactory>("/home/nicklas/src/cardgames/graphics/images"),
-      std::make_shared<TextFactory>("/home/nicklas/src/cardgames/graphics/fonts"));
+      std::make_shared<TextureFactory>("/home/nicklas/src/cardgames/graphics/images/"),
+      std::make_shared<TextFactory>("/home/nicklas/src/cardgames/graphics/fonts/"));
 }
 }
 

@@ -1,17 +1,16 @@
 #include "Player.hpp"
-#include <iostream> //TODO
 
 namespace cardgames::graphics
 {
 
 Player::Player(const blackjack::game::PlayerIf::Ptr& player,
-               const ImageFactory::Ptr& imageFactory,
+               const TextureFactoryIf::Ptr& textureFactory,
                const TextFactory::Ptr& textFactory)
   : mPlayer(player)
 {
   for(const auto &hand : mPlayer->GetHands())
   {
-    mHands.push_back(std::make_unique<Hand>(hand, imageFactory, textFactory));
+    mHands.push_back(std::make_unique<Hand>(hand, textureFactory, textFactory));
   }
   
   unsigned int handsOffset = 0;

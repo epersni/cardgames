@@ -4,11 +4,10 @@ target_sources(
     BlackJackView.cpp
     Card.cpp
     Hand.cpp
-    Image.cpp
-    ImageFactory.cpp
     Node.cpp
     Player.cpp
     TextFactory.cpp
+    TextureFactory.cpp
     ViewFactory.cpp
 )
 
