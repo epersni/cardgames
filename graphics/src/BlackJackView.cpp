@@ -16,9 +16,11 @@ BlackJackView::BlackJackView(
   , mBackground(textureFactory->Load("background_2560x1440.png")) //TODO: do not hardcode resolution in imagepath
   , mTextureFactory(textureFactory)
   , mTextFactory(textFactory)
+  , mCenterPiece(textFactory)
   , mDealerHand(dealerHand)
   , mPlayers(players)
 {
+  mCenterPiece.setPosition(width/2.0f, height/2.0f); //TODO: automaticall at center even if resize
 }
 
 bool BlackJackView::IsWindowOpen() const
@@ -45,6 +47,7 @@ void BlackJackView::Render()
 {
   mWindow.clear();
   mWindow.draw(mBackground);
+  mWindow.draw(mCenterPiece);
   unsigned int playerOffset = 0; 
   
   auto dealerHand = Hand(mDealerHand, mTextureFactory, mTextFactory);

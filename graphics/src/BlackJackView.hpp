@@ -2,6 +2,7 @@
 #define CARDGAMES_GRAPHICS_BLACKJACK_VIEW_HPP
 
 #include "Player.hpp"
+#include "CenterPiece.hpp"
 #include "TextFactoryIf.hpp"
 #include "TextureFactoryIf.hpp"
 #include "ViewIf.hpp"
@@ -35,6 +36,7 @@ private:
   sf::Sprite mBackground;
   TextureFactoryIf::Ptr mTextureFactory;
   TextFactoryIf::Ptr mTextFactory;
+  CenterPiece mCenterPiece;
   cardgames::blackjack::game::PlayableHandIf::Ptr mDealerHand;
   std::vector<cardgames::blackjack::game::PlayerIf::Ptr> mPlayers;
 };

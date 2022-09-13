@@ -3,6 +3,7 @@ target_sources(
   PRIVATE
     BlackJackView.cpp
     Card.cpp
+    CenterPiece.cpp
     Hand.cpp
     Node.cpp
     Player.cpp

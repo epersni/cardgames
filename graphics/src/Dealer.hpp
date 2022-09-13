@@ -24,7 +24,7 @@ class Dealer : public Node
            const TextFactory::Ptr& textFactory);
   private:
     Hand mHand;
-    virtual void onDraw(sf::RenderTarget& target, sf::RenderStates states) const;
+    void onDraw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 
 }

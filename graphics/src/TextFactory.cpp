@@ -47,6 +47,45 @@ TextConfig TextFactory::loadTextConfig(const std::string& textName)
         false,
         false};
   }
+  else if(textName == "centerpiece.title")
+  {
+      return {
+        "halittany_badela.ttf",
+        100,
+        0x141414ff,
+        0xffffffff,
+        2,
+        true,
+        true,
+        false,
+        false};
+  }
+  else if(textName == "centerpiece.row1")
+  {
+      return {
+        "mermaid.ttf",
+        50,
+        0x872222ff,
+        0xffffffff,
+        1,
+        false,
+        true,
+        false,
+        false};
+  }
+  else if(textName == "centerpiece.row2")
+  {
+      return {
+        "mermaid.ttf",
+        50,
+        0xEBEBEBff,
+        0x000000aa,
+        1,
+        false,
+        false,
+        false,
+        false};
+  }
   else
   {
       return {
