@@ -57,7 +57,8 @@ void BlackJackView::Render()
   for(auto& player : mPlayers)
   {
     auto p = Player(player, mTextureFactory, mTextFactory);
-    p.setPosition(0+playerOffset, 0+playerOffset);//TODO: magic number for now, no support (yet) for split hands anyway
+    p.rotate(90.0f);
+    p.setPosition(500+playerOffset, 100+playerOffset);//TODO: magic number for now, no support (yet) for split hands anyway
     mWindow.draw(p); 
   }
 
