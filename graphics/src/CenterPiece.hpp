@@ -4,6 +4,7 @@
 #include "Node.hpp"
 #include "TextFactoryIf.hpp"
 
+#include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
 
 namespace cardgames::graphics
@@ -17,6 +18,7 @@ class CenterPiece : public Node
     sf::Text mTitle;
     sf::Text mRow1;
     sf::Text mRow2;
+    sf::CircleShape mCircle;
     void onDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 

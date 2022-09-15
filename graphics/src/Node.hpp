@@ -4,6 +4,9 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Transformable.hpp>
 
 #include <memory>
@@ -19,6 +22,10 @@ class Node
 public:
   using Ptr = std::unique_ptr<Node>;
   void AddChild(Ptr child);
+  //TODO: should be possible with templates
+  void CenterOrigin(sf::Sprite& object);
+  void CenterOrigin(sf::Text& object);
+  void CenterOrigin(sf::Shape& object);
 private:
   std::vector<Ptr> mChildren;
   virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

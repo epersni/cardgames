@@ -58,7 +58,8 @@ TextConfig TextFactory::loadTextConfig(const std::string& textName)
         true,
         true,
         false,
-        false};
+        false,
+        TextAlignment::Center};
   }
   else if(textName == "centerpiece.row1")
   {
@@ -71,7 +72,8 @@ TextConfig TextFactory::loadTextConfig(const std::string& textName)
         false,
         true,
         false,
-        false};
+        false,
+        TextAlignment::Center};
   }
   else if(textName == "centerpiece.row2")
   {
@@ -84,7 +86,8 @@ TextConfig TextFactory::loadTextConfig(const std::string& textName)
         false,
         false,
         false,
-        false};
+        false,
+        TextAlignment::Center};
   }
   else
   {

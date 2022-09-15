@@ -25,6 +25,8 @@ struct TextStyle
   }
 };
 
+enum class TextAlignment { Left, Center, Right };
+
 struct TextConfig
 {
   std::string font;
@@ -33,6 +35,7 @@ struct TextConfig
   uint32_t outlinecolor;
   float outline;
   TextStyle style;
+  TextAlignment alignment;
 };
 
 }
