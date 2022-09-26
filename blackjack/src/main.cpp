@@ -83,9 +83,10 @@ int main()
   
   graphics::ViewFactory viewFactory;
   auto view 
-    = viewFactory.CreateBlackJackView(dealer, {player}, "graphics-config-file.yml");
+    //= viewFactory.CreateBlackJackView(dealer, {player}, "graphics-config-file.yml");
+    = viewFactory.CreateDemoBlackJackView("graphics-config-file.yml");
   
-  game->StartGame();
+  //game->StartGame();
 
   const sf::Time timePerFrame = sf::seconds(1.f/60.f);
   sf::Time timeSinceLastUpdate = sf::Time::Zero;

@@ -13,6 +13,9 @@ namespace cardgames::graphics
 class ViewFactory
 {
 public:
+  ViewIf::Ptr CreateDemoBlackJackView(
+      std::filesystem::path config) const;
+
   ViewIf::Ptr CreateBlackJackView(
       cardgames::blackjack::game::PlayableHandIf::Ptr dealerHand,
       std::vector<cardgames::blackjack::game::PlayerIf::Ptr> players,

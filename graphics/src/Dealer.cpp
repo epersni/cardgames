@@ -8,6 +8,7 @@ Dealer::Dealer(const blackjack::game::PlayableHandIf::Ptr& dealerHand,
                const TextFactory::Ptr& textFactory)
   : mHand(dealerHand, imageFactory, textFactory)
 {
+  CenterOrigin(mHand);
 }
 
 void Player::onDraw(sf::RenderTarget& target, sf::RenderStates states) const

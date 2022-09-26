@@ -20,7 +20,6 @@ BlackJackView::BlackJackView(
   , mDealerHand(dealerHand)
   , mPlayers(players)
 {
-  //mCenterPiece.setPosition(width/2.0f, height/2.0f); //TODO: automaticall at center even if resize
 }
 
 bool BlackJackView::IsWindowOpen() const
@@ -56,11 +55,13 @@ void BlackJackView::Render()
                          mConfig.dealerHand);
   mWindow.draw(dealerHand); 
 
-  //for(auto& player : mPlayers)
-  //{
-    auto p = Player(mPlayers[0], mTextureFactory, mTextFactory, mConfig.players[0]);
+  int id = 0;
+  for(auto& player : mPlayers)
+  {
+    auto p = Player(mPlayers[id], mTextureFactory, mTextFactory, mConfig.players[id]);
+    id++;
     mWindow.draw(p); 
-  //}
+  }
 
   mWindow.display();
 }
