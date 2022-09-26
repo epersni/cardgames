@@ -1,29 +1,26 @@
 #include "CenterPiece.hpp"
-#include "ShapeConfig.hpp"
 
 namespace cardgames::graphics
 {
 
-CenterPiece::CenterPiece(const TextFactoryIf::Ptr& textFactory)
-  : mTitle(textFactory->CreateText("centerpiece.title","BlackJack"))
-  , mRow1(textFactory->CreateText("centerpiece.row1","Pays 3 to 2"))
-  , mRow2(textFactory->CreateText("centerpiece.row2","Dealer must draw to 16 and stand on all 17s"))
-  , mCircle(400, 900)
+CenterPiece::CenterPiece(const config::Centerpiece& config,
+                         const TextFactoryIf::Ptr& textFactory)
+  : mTitle(textFactory->CreateText(config.title, "BlackJack"))
+  , mRow1(textFactory->CreateText(config.row1, "Pays 3 to 2"))
+  , mRow2(textFactory->CreateText(config.row2, "Dealer must draw to 16 and stand on all 17s"))
+  , mCircle(config.circle.radius, config.circle.points)
 {
   //TODO: shapefactory?
-  ShapeConfig shapeConfig{ 0x0, 0x575555ff, 2 };
-  mCircle.setFillColor(sf::Color(shapeConfig.fillcolor));
-  mCircle.setOutlineColor(sf::Color(shapeConfig.outlinecolor));
-  mCircle.setOutlineThickness(shapeConfig.outline);
-
+  mCircle.setFillColor(sf::Color(config.circle.shape.fillcolor));
+  mCircle.setOutlineColor(sf::Color(config.circle.shape.outlinecolor));
+  mCircle.setOutlineThickness(config.circle.shape.outline);
+  
+  Transform(config.transform);
+  
   CenterOrigin(mTitle);
   CenterOrigin(mCircle);
   CenterOrigin(mRow1);
   CenterOrigin(mRow2);
-  
-  mTitle.setPosition(0, -100);
-  mRow1.setPosition(0, 0);
-  mRow2.setPosition(0, 70);
 }
 
 void CenterPiece::onDraw(sf::RenderTarget& target, sf::RenderStates states) const

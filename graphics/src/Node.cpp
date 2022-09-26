@@ -10,6 +10,13 @@ void Node::AddChild(Ptr child)
   mChildren.push_back(std::move(child));
 }
 
+void Node::Transform(const config::Transform& transform)
+{
+  rotate(transform.angle);
+  setPosition(transform.position.x, transform.position.y);
+  setScale(transform.scale.x, transform.scale.x);
+}
+
 void Node::CenterOrigin(sf::Sprite& object)
 {
   sf::FloatRect bounds = object.getLocalBounds();

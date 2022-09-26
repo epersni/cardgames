@@ -6,21 +6,21 @@ namespace cardgames::graphics
 {
 
 BlackJackView::BlackJackView(
-    int width, 
-    int height, 
     cardgames::blackjack::game::PlayableHandIf::Ptr dealerHand,
     const std::vector<cardgames::blackjack::game::PlayerIf::Ptr>& players,
+    const config::Blackjack&& config,
     TextureFactoryIf::Ptr textureFactory,
     TextFactoryIf::Ptr textFactory)
-  : mWindow(sf::VideoMode(width, height), "BlackJack")
+  : mConfig(config)
+  , mWindow(sf::VideoMode(config.window.width, config.window.height), config.window.title)
   , mBackground(textureFactory->Load("background_2560x1440.png")) //TODO: do not hardcode resolution in imagepath
   , mTextureFactory(textureFactory)
   , mTextFactory(textFactory)
-  , mCenterPiece(textFactory)
+  , mCenterPiece(config.centerpiece, textFactory)
   , mDealerHand(dealerHand)
   , mPlayers(players)
 {
-  mCenterPiece.setPosition(width/2.0f, height/2.0f); //TODO: automaticall at center even if resize
+  //mCenterPiece.setPosition(width/2.0f, height/2.0f); //TODO: automaticall at center even if resize
 }
 
 bool BlackJackView::IsWindowOpen() const
@@ -50,17 +50,17 @@ void BlackJackView::Render()
   mWindow.draw(mCenterPiece);
   unsigned int playerOffset = 0; 
   
-  auto dealerHand = Hand(mDealerHand, mTextureFactory, mTextFactory);
-  dealerHand.setPosition(500, 500); //TODO configurable
+  auto dealerHand = Hand(mDealerHand,
+                         mTextureFactory,
+                         mTextFactory,
+                         mConfig.dealerHand);
   mWindow.draw(dealerHand); 
 
-  for(auto& player : mPlayers)
-  {
-    auto p = Player(player, mTextureFactory, mTextFactory);
-    p.rotate(90.0f);
-    p.setPosition(500+playerOffset, 100+playerOffset);//TODO: magic number for now, no support (yet) for split hands anyway
+  //for(auto& player : mPlayers)
+  //{
+    auto p = Player(mPlayers[0], mTextureFactory, mTextFactory, mConfig.players[0]);
     mWindow.draw(p); 
-  }
+  //}
 
   mWindow.display();
 }

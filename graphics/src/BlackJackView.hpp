@@ -7,6 +7,8 @@
 #include "TextureFactoryIf.hpp"
 #include "ViewIf.hpp"
 
+#include "config/include/BlackjackConfig.hpp"
+
 #include "../../blackjack/src/game/include/PlayerIf.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -19,10 +21,9 @@ namespace cardgames::graphics
 class BlackJackView : public ViewIf
 {
 public:
-  BlackJackView(int width,
-                int height, 
-                cardgames::blackjack::game::PlayableHandIf::Ptr dealerHand,
+  BlackJackView(cardgames::blackjack::game::PlayableHandIf::Ptr dealerHand,
                 const std::vector<cardgames::blackjack::game::PlayerIf::Ptr>& players,
+                const config::Blackjack&& config,
                 TextureFactoryIf::Ptr textureFactory,
                 TextFactoryIf::Ptr textFactory);
   bool IsWindowOpen() const override;
@@ -32,6 +33,7 @@ public:
   void Update(uint32_t timeMs) override;
 
 private:
+  const config::Blackjack mConfig;
   sf::RenderWindow mWindow;
   sf::Sprite mBackground;
   TextureFactoryIf::Ptr mTextureFactory;

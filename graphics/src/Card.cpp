@@ -63,7 +63,7 @@ namespace
 Card::Card(const cards::Card card, const TextureFactoryIf::Ptr& textureFactory)
   : mSprite(textureFactory->Load("cards/" + getCardFileName(card)))
 {
-  mSprite.setScale(0.5, 0.5); //TODO: configurable?
+  CenterOrigin(mSprite);
 }
 
 void Card::onDraw(sf::RenderTarget& target, sf::RenderStates states) const

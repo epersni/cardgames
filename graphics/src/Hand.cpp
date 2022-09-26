@@ -7,36 +7,31 @@ namespace cardgames::graphics
 
 Hand::Hand(const blackjack::game::PlayableHandIf::Ptr& playableHand,
            const TextureFactoryIf::Ptr& textureFactory,
-           const TextFactory::Ptr& textFactory)
+           const TextFactory::Ptr& textFactory,
+           const config::Hand& config)
   : mHand(playableHand)
   , mSumText(textFactory->CreateText(
-        "player.hand.total",
-        playableHand->GetTotal() ==  0 ? "" : std::to_string(playableHand->GetTotal())))
+        config.sumText, playableHand->GetTotal() ==  0 ? 
+          "" : std::to_string(playableHand->GetTotal())))
 {
+  config::Position nextCardOffset = { 0, 0 };
   for(const auto& card : playableHand->GetCards())
   {
-    mCards.push_back(std::make_shared<Card>(card, textureFactory));
+    auto cardNode = Card(card, textureFactory);
+    cardNode.setPosition(nextCardOffset.x, nextCardOffset.y);
+    cardNode.setScale(config.cardsScale.x, config.cardsScale.y);
+    nextCardOffset.x += config.cardsOffset.x;
+    nextCardOffset.y += config.cardsOffset.y;
+    AddChild(std::make_unique<Card>(std::move(cardNode)));
   }
-  float offsetX = 0.0;
-  float offsetY = 80;
-  for(const auto& card : mCards)
-  {
-    card->setPosition(offsetX,offsetY);
-    offsetY += 10;
-    offsetX += 100;
-  }
-  //TODO: align text to center
-  mSumText.setPosition(190, 0);
+  
+  CenterOrigin(mSumText);
+  Transform(config.transform);
 }
 
 void Hand::onDraw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-  for(const auto& card : mCards)
-  {
-    target.draw(*card, states);
-  }
   target.draw(mSumText, states);
 }
-
 
 }

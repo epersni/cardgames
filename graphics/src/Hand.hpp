@@ -6,6 +6,8 @@
 #include "TextFactory.hpp"
 #include "Node.hpp"
 
+#include "config/include/Hand.hpp"
+
 #include "../../blackjack/src/game/include/PlayableHandIf.hpp"
 
 #include <SFML/Graphics/Drawable.hpp>
@@ -27,13 +29,14 @@ class Hand : public Node
     using Ptr = std::unique_ptr<Hand>;
     Hand(const blackjack::game::PlayableHandIf::Ptr& playableHand,
          const TextureFactoryIf::Ptr& textureFactory,
-         const TextFactory::Ptr& textFactory);
+         const TextFactory::Ptr& textFactory,
+         const config::Hand& config);
 
   private:
-    const blackjack::game::PlayableHandIf::Ptr mHand;
-    std::vector<Card::Ptr> mCards;
-    sf::Text mSumText;
-    //ChipPile mChipPile; //TODO
+  const blackjack::game::PlayableHandIf::Ptr mHand;
+  std::vector<Card::Ptr> mCards;
+  sf::Text mSumText;
+  //ChipPile mChipPile; //TODO
     virtual void onDraw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 

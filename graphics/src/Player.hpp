@@ -6,6 +6,8 @@
 #include "TextFactoryIf.hpp"
 #include "TextureFactoryIf.hpp"
 
+#include "config/include/Player.hpp"
+
 #include "../../blackjack/src/game/include/PlayerIf.hpp"
 
 #include <SFML/Graphics/Drawable.hpp>
@@ -21,10 +23,11 @@ class Player : public Node
   public:
     Player(const blackjack::game::PlayerIf::Ptr& player,
            const TextureFactoryIf::Ptr& textureFactory,
-           const TextFactory::Ptr& textFactory);
+           const TextFactory::Ptr& textFactory,
+           const config::Player& config);
   private:
     blackjack::game::PlayerIf::Ptr mPlayer;
-    std::vector<Hand::Ptr> mHands;
+    //std::vector<Hand::Ptr> mHands; //TODO: needed?
     virtual void onDraw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 

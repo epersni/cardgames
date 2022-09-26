@@ -1,3 +1,5 @@
+add_subdirectory(config)
+
 target_sources(
   graphics
   PRIVATE

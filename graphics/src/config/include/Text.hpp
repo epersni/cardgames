@@ -1,11 +1,14 @@
-#ifndef CARDGAMES_GRAPHICS_TEXTCONFIG_HPP
-#define CARDGAMES_GRAPHICS_TEXTCONFIG_HPP
+#ifndef CARDGAMES_GRAPHICS_CONFIG_INCLUDE_TEXT_HPP
+#define CARDGAMES_GRAPHICS_CONFIG_INCLUDE_TEXT_HPP
+
+#include "Transform.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 
+#include <cstdint>
 #include <string>
 
-namespace cardgames::graphics
+namespace cardgames::graphics::config
 {
 
 struct TextStyle
@@ -27,8 +30,9 @@ struct TextStyle
 
 enum class TextAlignment { Left, Center, Right };
 
-struct TextConfig
+struct Text
 {
+  Transform transform;
   std::string font;
   unsigned int size;
   uint32_t fillcolor;

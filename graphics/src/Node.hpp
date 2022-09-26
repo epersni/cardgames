@@ -1,6 +1,8 @@
 #ifndef CARDGAMES_GRAPHICS_NODE_HPP
 #define CARDGAMES_GRAPHICS_NODE_HPP
 
+#include "config/include/Transform.hpp"
+
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -22,6 +24,7 @@ class Node
 public:
   using Ptr = std::unique_ptr<Node>;
   void AddChild(Ptr child);
+  void Transform(const config::Transform& transform);
   //TODO: should be possible with templates
   void CenterOrigin(sf::Sprite& object);
   void CenterOrigin(sf::Text& object);

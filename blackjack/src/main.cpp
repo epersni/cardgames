@@ -82,7 +82,8 @@ int main()
         cardDealer);
   
   graphics::ViewFactory viewFactory;
-  auto view = viewFactory.CreateBlackJackView(2560,1440, dealer, {player});
+  auto view 
+    = viewFactory.CreateBlackJackView(dealer, {player}, "graphics-config-file.yml");
   
   game->StartGame();
 

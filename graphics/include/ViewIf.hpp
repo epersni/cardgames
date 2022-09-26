@@ -9,7 +9,6 @@
 
 namespace cardgames::graphics
 {
-
 struct ViewIf
 {
   using Ptr = std::shared_ptr<ViewIf>;

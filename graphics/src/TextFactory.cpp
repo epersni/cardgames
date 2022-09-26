@@ -30,102 +30,21 @@ TextFactory::TextFactory(const std::string& fontsPath)
   }
 }
 
-TextConfig TextFactory::loadTextConfig(const std::string& textName)
-{
-  //TODO: hard coded 'player.hand.total' for now, shall have config file for this
-
-  if(textName == "player.hand.total")
-  {
-      return {
-        "magic_retro.ttf",
-        50,
-        0xff0000ff,
-        0xffffffff,
-        1,
-        false,
-        false,
-        false,
-        false};
-  }
-  else if(textName == "centerpiece.title")
-  {
-      return {
-        "halittany_badela.ttf",
-        100,
-        0x141414ff,
-        0xffffffff,
-        2,
-        true,
-        true,
-        false,
-        false,
-        TextAlignment::Center};
-  }
-  else if(textName == "centerpiece.row1")
-  {
-      return {
-        "mermaid.ttf",
-        50,
-        0x872222ff,
-        0xffffffff,
-        1,
-        false,
-        true,
-        false,
-        false,
-        TextAlignment::Center};
-  }
-  else if(textName == "centerpiece.row2")
-  {
-      return {
-        "mermaid.ttf",
-        50,
-        0xEBEBEBff,
-        0x000000aa,
-        1,
-        false,
-        false,
-        false,
-        false,
-        TextAlignment::Center};
-  }
-  else
-  {
-      return {
-        "magic_retro.ttf",
-        50,
-        0xff0000ff,
-        0xffffffff,
-        1,
-        false,
-        false,
-        false,
-        false};
-  }
-}
-
-sf::Text TextFactory::CreateText(const std::string& textConfig,
-                                 const std::string& text)
-{
-  if(mConfigs.find(textConfig) == mConfigs.end())
-  {
-    //TODO: log this
-    mConfigs[textConfig] = loadTextConfig(textConfig);
-  }
-  return createText(mConfigs[textConfig], text);
-}
-
-sf::Text TextFactory::createText(const TextConfig& textConfig,
+//TODO: lookup text from language somehow
+sf::Text TextFactory::CreateText(const config::Text& config,
                                  const std::string& text)
 {
   sf::Text t;
-  t.setFont(mFonts[textConfig.font]);
-  t.setCharacterSize(textConfig.size);
-  t.setFillColor(sf::Color(textConfig.fillcolor));
-  t.setOutlineColor(sf::Color(textConfig.outlinecolor));
-  t.setOutlineThickness(textConfig.outline);
-  t.setStyle(textConfig.style);
+  t.setCharacterSize(config.size);
+  t.setFillColor(sf::Color(config.fillcolor));
+  t.setFont(mFonts[config.font]);
+  t.setOutlineColor(sf::Color(config.outlinecolor));
+  t.setOutlineThickness(config.outline);
+  t.setPosition(config.transform.position.x, config.transform.position.y);
+  t.setRotation(config.transform.angle);
+  t.setScale(config.transform.scale.x, config.transform.scale.y);
   t.setString(text);
+  t.setStyle(config.style);
   return t;
 }
 

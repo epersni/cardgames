@@ -4,6 +4,8 @@
 #include "Node.hpp"
 #include "TextFactoryIf.hpp"
 
+#include "config/include/Centerpiece.hpp"
+
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
 
@@ -13,7 +15,9 @@ namespace cardgames::graphics
 class CenterPiece : public Node
 {
   public:
-    CenterPiece(const TextFactoryIf::Ptr& textFactory);
+    CenterPiece(
+        const config::Centerpiece& config,
+        const TextFactoryIf::Ptr& textFactory);
   private:
     sf::Text mTitle;
     sf::Text mRow1;
