@@ -4,6 +4,7 @@ target_sources(
   graphics
   PRIVATE
     BlackJackView.cpp
+    Button.cpp
     Card.cpp
     CenterPiece.cpp
     Hand.cpp

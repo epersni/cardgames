@@ -34,7 +34,6 @@ class Hand : public Node
 
   private:
   const blackjack::game::PlayableHandIf::Ptr mHand;
-  std::vector<Card::Ptr> mCards;
   sf::Text mSumText;
   //ChipPile mChipPile; //TODO
     virtual void onDraw(sf::RenderTarget& target, sf::RenderStates states) const;

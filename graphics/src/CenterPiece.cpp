@@ -10,12 +10,17 @@ CenterPiece::CenterPiece(const config::Centerpiece& config,
   , mRow2(textFactory->CreateText(config.row2, "Dealer must draw to 16 and stand on all 17s"))
   , mCircle(config.circle.radius, config.circle.points)
 {
-  //TODO: shapefactory?
+  Transform(config.transform);
+
+  //TODO: yep, shape factory is needed
   mCircle.setFillColor(sf::Color(config.circle.shape.fillcolor));
   mCircle.setOutlineColor(sf::Color(config.circle.shape.outlinecolor));
   mCircle.setOutlineThickness(config.circle.shape.outline);
-  
-  Transform(config.transform);
+  mCircle.setPosition(config.circle.shape.transform.position.x,
+                      config.circle.shape.transform.position.y);
+  mCircle.setScale(config.circle.shape.transform.scale.x,
+                   config.circle.shape.transform.scale.y);
+  mCircle.setRotation(config.circle.shape.transform.angle);
   
   CenterOrigin(mTitle);
   CenterOrigin(mCircle);

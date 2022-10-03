@@ -1,4 +1,5 @@
 #include "BlackJackView.hpp"
+#include "Hand.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -12,7 +13,7 @@ BlackJackView::BlackJackView(
     TextureFactoryIf::Ptr textureFactory,
     TextFactoryIf::Ptr textFactory)
   : mConfig(config)
-  , mWindow(sf::VideoMode(config.window.width, config.window.height), config.window.title)
+  , mWindow(sf::VideoMode(config.window.width, config.window.height), config.window.title, sf::Style::Fullscreen)
   , mBackground(textureFactory->Load("background_2560x1440.png")) //TODO: do not hardcode resolution in imagepath
   , mTextureFactory(textureFactory)
   , mTextFactory(textFactory)

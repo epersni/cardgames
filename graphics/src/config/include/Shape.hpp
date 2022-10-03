@@ -23,6 +23,12 @@ struct Circle
   uint32_t points;
 };
 
+struct Rectangle
+{
+  Shape shape;
+  Scale size;
+};
+
 }
 
 #endif

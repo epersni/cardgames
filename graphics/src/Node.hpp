@@ -24,7 +24,9 @@ class Node
 public:
   using Ptr = std::unique_ptr<Node>;
   void AddChild(Ptr child);
+  void Align(sf::Transformable& object) const;
   void Transform(const config::Transform& transform);
+  void Transform(const config::Transform& transform, sf::Transformable& object);
   //TODO: should be possible with templates
   void CenterOrigin(sf::Sprite& object);
   void CenterOrigin(sf::Text& object);

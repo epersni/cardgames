@@ -25,14 +25,7 @@ using namespace cardgames::blackjack;
 
 int main()
 { 
-  auto shallExit = false;
-
-  auto keyEventPublisher = std::make_shared<common::KeyEventPublisher>();
-
-  keyEventPublisher->subscribeToKeyPressed(
-      common::KeyEventPublisher::Key::Q,
-      [&shallExit](){ std::cout << "Exiting now then..."; shallExit = true; });
-  
+  auto keyEventPublisher = std::make_shared<common::KeyEventPublisher>(); 
   
   auto log = logging::Logger::createLogger("main");
   
@@ -85,6 +78,10 @@ int main()
   auto view 
     //= viewFactory.CreateBlackJackView(dealer, {player}, "graphics-config-file.yml");
     = viewFactory.CreateDemoBlackJackView("graphics-config-file.yml");
+  
+  keyEventPublisher->subscribeToKeyPressed(
+      common::KeyEventPublisher::Key::Q,
+      [&](){ view->CloseWindow(); return 0; });
   
   //game->StartGame();
 

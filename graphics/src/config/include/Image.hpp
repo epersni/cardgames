@@ -11,7 +11,7 @@ namespace cardgames::graphics::config
 struct Image
 {
   Transform transform;
-  std::string filename;
+  std::string filename = "no_image_found.png";
 };
 
 }
