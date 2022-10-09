@@ -14,9 +14,9 @@ struct Player
   Hand hand;
   Position handsOffset;
   Rectangle headUpDisplayBox;
+  Text instruction;
   Text name;
   Text credits;
-  Text instruction;
   Button buttons[4];
 };
 

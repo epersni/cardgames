@@ -30,6 +30,7 @@ class Player : public Node
     blackjack::game::PlayerIf::Ptr mPlayer;
     sf::RectangleShape mHeadUpDisplayBox;
     sf::Text mName;
+    sf::Text mInstruction;
     sf::Text mCredits;
     //std::vector<Hand::Ptr> mHands; //TODO: needed?
     virtual void onDraw(sf::RenderTarget& target, sf::RenderStates states) const;

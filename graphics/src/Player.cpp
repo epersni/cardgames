@@ -12,6 +12,7 @@ Player::Player(const blackjack::game::PlayerIf::Ptr& player,
                const config::Player& config)
   : mPlayer(player)
   , mName(textFactory->CreateText(config.name, "Player X"))
+  , mInstruction(textFactory->CreateText(config.instruction, "Place your bet"))
   , mCredits(textFactory->CreateText(config.credits, "$10000"))
 {
   Transform(config.transform);
@@ -46,6 +47,7 @@ Player::Player(const blackjack::game::PlayerIf::Ptr& player,
   
   Align(mHeadUpDisplayBox);
   Align(mName);
+  Align(mInstruction);
   Align(mCredits);
 }
 
@@ -54,6 +56,7 @@ void Player::onDraw(sf::RenderTarget& target, sf::RenderStates states) const
   target.draw(mHeadUpDisplayBox);
   target.draw(mName);
   target.draw(mCredits);
+  target.draw(mInstruction);
 }
 
 }
