@@ -93,7 +93,7 @@ BlackjackConfig::BlackjackConfig(std::filesystem::path configFilePath)
   mBlackjack.players[0].headUpDisplayBox.shape.transform.position.x = -230;
   mBlackjack.players[0].headUpDisplayBox.shape.transform.position.y = -70;
   mBlackjack.players[0].headUpDisplayBox.shape.transform.angle = 0;
-  mBlackjack.players[0].headUpDisplayBox.shape.fillcolor = 0x3b343499;
+  mBlackjack.players[0].headUpDisplayBox.shape.fillcolor = 0x3b3434ff;
   mBlackjack.players[0].headUpDisplayBox.shape.outlinecolor = 0x6b0b1188;
   mBlackjack.players[0].headUpDisplayBox.shape.outline = 2;
   mBlackjack.players[0].headUpDisplayBox.size.x = 700;
