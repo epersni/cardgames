@@ -29,6 +29,7 @@ class Player : public Node
   private:
     blackjack::game::PlayerIf::Ptr mPlayer;
     sf::RectangleShape mHeadUpDisplayBox;
+    std::array<Button,4> mButtons;
     sf::Text mName;
     sf::Text mInstruction;
     sf::Text mCredits;

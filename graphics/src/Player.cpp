@@ -14,6 +14,10 @@ Player::Player(const blackjack::game::PlayerIf::Ptr& player,
   , mName(textFactory->CreateText(config.name, "Player X"))
   , mInstruction(textFactory->CreateText(config.instruction, "Place your bet"))
   , mCredits(textFactory->CreateText(config.credits, "$10000"))
+  , mButtons{Button(config.buttons[0], textureFactory, textFactory),
+             Button(config.buttons[1], textureFactory, textFactory),
+             Button(config.buttons[2], textureFactory, textFactory),
+             Button(config.buttons[3], textureFactory, textFactory)}
 {
   Transform(config.transform);
 
@@ -25,12 +29,6 @@ Player::Player(const blackjack::game::PlayerIf::Ptr& player,
     nextHandOffset.x += config.handsOffset.x;
     nextHandOffset.y += config.handsOffset.y;
     AddChild(std::make_unique<Hand>(std::move(handNode)));
-  }
-
-  for(auto button : config.buttons)
-  {
-    auto buttonNode = Button(button, textureFactory, textFactory);
-    AddChild(std::make_unique<Button>(std::move(buttonNode)));
   }
 
   mHeadUpDisplayBox.setSize(sf::Vector2f(config.headUpDisplayBox.size.x,
@@ -57,6 +55,10 @@ void Player::onDraw(sf::RenderTarget& target, sf::RenderStates states) const
   target.draw(mName);
   target.draw(mCredits);
   target.draw(mInstruction);
+  std::for_each(mButtons.begin(),
+                mButtons.end(),
+                [&](auto& button){ target.draw(button, states);}); 
+
 }
 
 }
